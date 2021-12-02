@@ -6,6 +6,7 @@ const rooms = require('../data/rooms')
 //資料庫
 const Room = require('../models/roomModel')
 
+//再連接資料庫
 mongoose.connect(
   'mongodb+srv://ken75319:Q8Y3qqN3kh4xIbVF@cluster0.gissy.mongodb.net/Bookit?retryWrites=true&w=majority',
   {
@@ -25,7 +26,7 @@ const importData = async (req, res) => {
     process.exit() //*
   } catch (error) {
     console.log(error.message)
-    process.exit() //*
+    process.exit(1) //*
   }
 }
 

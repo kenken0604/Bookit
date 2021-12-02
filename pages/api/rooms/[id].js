@@ -3,14 +3,19 @@ import connectDB from '../../../config/db'
 
 import onError from '../../../middlewares/error'
 
-import { createRoom, getAllRooms } from '../../../controllers/roomControllers'
+import {
+  getRoomByID,
+  updateRoom,
+  deleteRoom,
+} from '../../../controllers/roomControllers'
 
 const handler = nc({ onError }) //必須傳入物件
 
 connectDB()
 
 //路由
-handler.get(getAllRooms)
-handler.post(createRoom)
+handler.get(getRoomByID)
+handler.put(updateRoom)
+handler.delete(deleteRoom)
 
 export default handler
