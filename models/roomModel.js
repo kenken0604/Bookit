@@ -25,7 +25,7 @@ const roomSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Please enter number of beds in room'],
   },
-  internest: {
+  internet: {
     type: Boolean,
     default: false,
   },
