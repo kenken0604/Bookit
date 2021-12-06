@@ -1,0 +1,4 @@
+export const ROOMS_LIST_SUCCESS = 'ROOMS_LIST_SUCCESS'
+export const ROOMS_LIST_FAIL = 'ROOMS_LIST_FAIL'
+
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'
