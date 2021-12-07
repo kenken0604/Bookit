@@ -13,6 +13,10 @@ const roomSchema = new mongoose.Schema({
     maxlength: [4, 'Room price cannot exceed 4 characters'],
     default: 0.0,
   },
+  description: {
+    type: String,
+    required: [true, 'Please enter room description'],
+  },
   address: {
     type: String,
     required: [true, 'Please enter room address'],
@@ -37,7 +41,7 @@ const roomSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  petAllowed: {
+  petsAllowed: {
     type: Boolean,
     default: false,
   },

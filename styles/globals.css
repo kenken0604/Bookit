@@ -269,6 +269,10 @@ nav {
   border-radius: 0.8rem;
 }
 
+.object-fit {
+  object-fit: cover;
+}
+
 .ratings {
   font-size: 1.2rem;
   color: #e61e4d;
@@ -278,6 +282,26 @@ nav {
   font-size: 0.85rem;
   color: grey;
   margin-left: 0.5rem;
+}
+
+/* Carousel */
+.visually-hidden {
+  display: none;
+}
+
+.carousel-indicators {
+  bottom: 20px;
+}
+
+.carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  margin: 0 5px;
+  background-color: white;
+  opacity: 0.5;
 }
 
 /* Ratings */
@@ -319,7 +343,7 @@ nav {
 
 .booking-card {
   border: 1px solid #e3e3e3;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 5px 10px;
 }
 

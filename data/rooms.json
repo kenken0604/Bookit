@@ -15,10 +15,6 @@
       {
         "public_id": "bookit/rooms/1_bzynlv",
         "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/1_bzynlv.jpg"
-      },
-      {
-        "public_id": "bookit/rooms/2_s1u52n",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590761/bookit/rooms/2_s1u52n.jpg"
       }
     ],
     "category": "King"
@@ -79,10 +75,6 @@
       {
         "public_id": "bookit/rooms/5_jmydt6",
         "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/5_jmydt6.jpg"
-      },
-      {
-        "public_id": "bookit/rooms/6_nwmr5f",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/6_nwmr5f.jpg"
       }
     ],
     "category": "Single"
@@ -141,8 +133,8 @@
     "roomCleaning": false,
     "images": [
       {
-        "public_id": "bookit/rooms/9_konrjf",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+        "public_id": "bookit/rooms/2_s1u52n",
+        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590761/bookit/rooms/2_s1u52n.jpg"
       }
     ],
     "category": "Single"
@@ -161,8 +153,8 @@
     "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/10_w8w8yi",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590840/bookit/rooms/10_w8w8yi.jpg"
+        "public_id": "bookit/rooms/6_nwmr5f",
+        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/6_nwmr5f.jpg"
       }
     ],
     "category": "Single"

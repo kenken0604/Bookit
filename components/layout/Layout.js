@@ -7,7 +7,7 @@ import Footer from './Footer'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Layout = ({ children, title = 'Bookit | Always Book the Best' }) => {
+const Layout = ({ children, title = 'Always Book the Best' }) => {
   return (
     <div>
       <Head>
@@ -22,7 +22,7 @@ const Layout = ({ children, title = 'Bookit | Always Book the Best' }) => {
           content="hotel, villa, resort, hostel, holidays, vacation"
         />
 
-        <title>{title}</title>
+        <title>{`Bookit | ${title}`}</title>
       </Head>
       <Header />
       {children}
