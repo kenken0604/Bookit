@@ -12,10 +12,10 @@ export const roomsListReducer = (state = { rooms: [] }, action) => {
   switch (type) {
     case ROOMS_LIST_SUCCESS:
       return {
-        roomCount: payload.roomCount,
-        pageSize: payload.pageSize,
-        filteredRooms: payload.filteredRooms,
         rooms: payload.rooms,
+        pageNumber: payload.pageNumber,
+        roomsCount: payload.roomsCount,
+        pageSize: payload.pageSize,
       }
     case ROOMS_LIST_FAIL:
       return {

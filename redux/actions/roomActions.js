@@ -10,13 +10,28 @@ import {
 } from '../constants/roomConstants'
 
 //list all rooms
-export const listRooms = (req, pageNumber = 1) => {
+export const listRooms = (
+  req,
+  keyword = '',
+  pageNumber = 1,
+  guest,
+  category,
+) => {
   return async (dispatch) => {
     try {
       const { origin } = absoluteURL(req)
-      const { data } = await axios.get(
-        `${origin}/api/rooms?pageNumber=${pageNumber}`, //後端api要用postman設定好的，與前端路由無關
-      )
+
+      let link = `${origin}/api/rooms?location=${keyword}&pageNumber=${pageNumber}` //後端api要用postman設定好的，與前端路由無關
+
+      if (guest) {
+        link = link.concat(`&guestCapacity=${guest}`) //*
+      }
+
+      if (category) {
+        link = link.concat(`&category=${category}`)
+      }
+
+      const { data } = await axios.get(link)
 
       dispatch({
         type: ROOMS_LIST_SUCCESS,

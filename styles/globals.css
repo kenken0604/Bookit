@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
 }
 
+.min-height-80 {
+  min-height: 80vh;
+}
+
 /* Scroll Bar */
 
 ::-webkit-scrollbar-track {

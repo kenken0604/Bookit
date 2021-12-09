@@ -1,30 +1,40 @@
 import Room from '../models/roomModel'
 
 import ErrorHandler from '../utils/errorHandler'
-import apiFeature from '../utils/apiFeature'
 import catchAsyncError from '../middlewares/catchAsyncError'
+// import apiFeature from '../utils/apiFeature'
 
 // @func    get a room
 // @route   get /api/rooms
 // @access  public
 export const getAllRooms = catchAsyncError(async (req, res) => {
   const pageSize = 4
-  const roomCount = await Room.countDocuments()
-  const feature = new apiFeature(Room.find(), req.query)
-    .search()
-    .filter()
-    .paginate(pageSize)
+  const pageNumber = Number(req.query.pageNumber) || 1
 
-  // const rooms = await Room.find({})
-  let rooms = await feature.query //feature現在帶有query方法
-  let filteredRooms = rooms.length
+  const keyword = req.query.location
+    ? {
+        address: {
+          $regex: req.query.location,
+          $options: 'i',
+        },
+      }
+    : {}
+
+  const queryCopy = { ...req.query }
+  delete queryCopy.location //排除路由上的location做過濾
+  delete queryCopy.pageNumber //排除路由上page做過濾
+
+  const roomsCount = await Room.countDocuments({ ...keyword })
+  const rooms = await Room.find({ ...keyword, ...queryCopy })
+    .limit(pageSize)
+    .skip(pageSize * (pageNumber - 1))
 
   res.status(200).json({
     success: true,
-    roomCount,
-    pageSize,
-    filteredRooms,
     rooms,
+    pageNumber,
+    roomsCount,
+    pageSize,
   })
 })
 

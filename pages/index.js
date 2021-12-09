@@ -17,6 +17,14 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => {
   return async (context) => {
     const { req, query } = context //context代表url裡的內容
 
-    await store.dispatch(listRooms(req, query.pageNumber)) //*query是action傳過來的query，不是頁面使用的
+    await store.dispatch(
+      listRooms(
+        req,
+        query.location,
+        query.pageNumber,
+        query.guestCapacity,
+        query.category,
+      ),
+    ) //*query是action傳過來的query，不是頁面使用的
   }
 })
