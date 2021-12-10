@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth'
-// import Providers from 'next-auth/providers'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import Providers from 'next-auth/providers'
 
 import User from '../../../models/userModel'
 import connectDB from '../../../config/db'
@@ -10,7 +9,7 @@ export default NextAuth({
     jwt: true,
   },
   providers: [
-    CredentialsProvider({
+    Providers.Credentials({
       async authorize(credentials) {
         connectDB()
 

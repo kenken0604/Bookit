@@ -15,14 +15,14 @@ export default (err, req, res, next) => {
 
   // Handling mongoose Validation error
   if (err.name === 'ValidationError') {
-    const { message } = err.errors.name //*
+    const message = err.message //*
     error = new ErrorHandler(message, 400)
   }
 
   res.status(err.statusCode).json({
     success: false,
     error,
-    message: error.message,
+    message: err.message,
     stack: error.stack,
   })
 }

@@ -1,23 +1,29 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { signIn } from 'next-auth/react' //*next-auth/client不適用
+import { signIn } from 'next-auth/client' //*next-auth/react第四版適用
 
 import { toast } from 'react-toastify'
+import ButtonLoader from '../ButtonLoader'
 
 const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const submitHandler = async (e) => {
     e.preventDefault()
+
+    setLoading(true)
 
     const result = await signIn('credentials', {
       redirect: false, //*登入失敗也不重新導向
       email,
       password,
     })
+
+    setLoading(false)
 
     if (result.error) {
       toast.error(result.error) //登入失敗結果
@@ -52,12 +58,14 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <Link href="#">
+                  <a className="float-right mb-4">Forgot Password?</a>
+                </Link>
               </div>
-              <Link href="#">
-                <a className="float-right mb-4">Forgot Password?</a>
-              </Link>
-              <button className="btn btn-block py-3">LOGIN</button>
-              <Link href="#">
+              <button className="btn btn-block py-2">
+                {loading ? <ButtonLoader /> : 'LOGIN'}
+              </button>
+              <Link href="/register">
                 <a className="float-right mb-3">New User?</a>
               </Link>
             </form>

@@ -8,7 +8,10 @@ const Paginate = ({ pageNumber, pageSize, roomsCount, keyword }) => {
       <Link
         href={keyword ? `/?location=${keyword}&pageNumber=1` : `/?pageNumber=1`}
       >
-        <li className={`page-item ${pageNumber === 1 ? 'disabled' : ''}`}>
+        <li
+          className={`page-item ${pageNumber === 1 ? 'disabled' : ''}`}
+          style={{ cursor: 'pointer' }}
+        >
           <a
             className="page-link"
             aria-disabled={pageNumber === 1 ? 'true' : 'false'}
@@ -26,7 +29,10 @@ const Paginate = ({ pageNumber, pageSize, roomsCount, keyword }) => {
               : `/?pageNumber=${x + 1}`
           }
         >
-          <li className={`page-item ${x + 1 === pageNumber ? 'active' : ''}`}>
+          <li
+            className={`page-item ${x + 1 === pageNumber ? 'active' : ''}`}
+            style={{ cursor: 'pointer' }}
+          >
             <a className="page-link">{x + 1}</a>
           </li>
         </Link>
@@ -39,7 +45,10 @@ const Paginate = ({ pageNumber, pageSize, roomsCount, keyword }) => {
         }
         disabled={pageNumber === pages}
       >
-        <li className={`page-item ${pageNumber === pages ? 'disabled' : ''}`}>
+        <li
+          className={`page-item ${pageNumber === pages ? 'disabled' : ''}`}
+          style={{ cursor: 'pointer' }}
+        >
           <a
             className="page-link"
             aria-disabled={pageNumber === pages ? 'true' : 'false'}
