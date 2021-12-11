@@ -44,3 +44,15 @@ export const registerUser = catchAsyncError(async (req, res) => {
     message: 'Account successfully registered.',
   })
 })
+
+// @func    get user profile
+// @route   get /api/me
+// @access  private
+export const getUserProfile = catchAsyncError(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  res.status(200).json({
+    success: true,
+    user,
+  })
+})

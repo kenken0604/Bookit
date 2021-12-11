@@ -25,7 +25,7 @@ const RoomFeatures = ({ room }) => {
         {room.internet ? <p>Free Breakfast</p> : <p>No Breakfast</p>}
       </div>
       <div className="room-feature">
-        <i class="fas fa-wind mr-2"></i>{' '}
+        <i className="fas fa-wind mr-2"></i>{' '}
         {room.airConditioned ? (
           <p>Air Conditioning</p>
         ) : (

@@ -13,9 +13,7 @@ const RoomDetails = () => {
   const { room } = useSelector((state) => state.roomDetails)
 
   useEffect(() => {
-    if (room) {
-      toast.success('Room details successfully imported')
-    } else {
+    if (!room) {
       toast.error('We have errors here...')
       dispatch(clearErrors())
     }

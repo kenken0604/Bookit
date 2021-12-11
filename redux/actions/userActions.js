@@ -3,6 +3,9 @@ import absoluteURL from 'next-absolute-url'
 
 import {
   CLEAR_ERRORS,
+  USER_PROFILE_FAIL,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -26,6 +29,28 @@ export const registerUser = (userInfo) => {
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
+        payload: error.response.data.message, //*
+      })
+      console.log(error.response.data)
+    }
+  }
+}
+
+//register an user
+export const getUserProfile = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: USER_PROFILE_REQUEST })
+
+      const { data } = await axios.get(`/api/me`)
+
+      dispatch({
+        type: USER_PROFILE_SUCCESS,
+        payload: data.user,
+      })
+    } catch (error) {
+      dispatch({
+        type: USER_PROFILE_FAIL,
         payload: error.response.data.message, //*
       })
       console.log(error.response.data)
