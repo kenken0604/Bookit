@@ -23,7 +23,13 @@ export const registerUser = catchAsyncError(async (req, res) => {
     crop: 'scale',
   })
 
-  const user = await User.create({
+  const existedUser = await User.findOne({ email })
+  if (existedUser) {
+    res.status(400)
+    throw new Error('This email has been taken.')
+  }
+
+  await User.create({
     name,
     email,
     password,
