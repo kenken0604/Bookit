@@ -9,6 +9,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
 } from '../constants/userConstants'
 
 //register an user
@@ -31,7 +34,6 @@ export const registerUser = (userInfo) => {
         type: USER_REGISTER_FAIL,
         payload: error.response.data.message, //*
       })
-      console.log(error.response.data)
     }
   }
 }
@@ -42,18 +44,45 @@ export const getUserProfile = () => {
     try {
       dispatch({ type: USER_PROFILE_REQUEST })
 
-      const { data } = await axios.get(`/api/me`)
+      const { data } = await axios.get(`/api/me`) //是否需要config加密token
 
       dispatch({
         type: USER_PROFILE_SUCCESS,
-        payload: data.user,
+        payload: data.user, //*
       })
     } catch (error) {
       dispatch({
         type: USER_PROFILE_FAIL,
         payload: error.response.data.message, //*
       })
-      console.log(error.response.data)
+    }
+  }
+}
+
+//update an user
+export const updateProfile = (updateInfo) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: USER_UPDATE_REQUEST })
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const { data } = await axios.put(`/api/me/update`, updateInfo, config) //是否需要config加密token
+
+      dispatch({
+        type: USER_UPDATE_SUCCESS,
+        payload: data.success,
+      })
+    } catch (error) {
+      console.log(error)
+      dispatch({
+        type: USER_UPDATE_FAIL,
+        payload: error.response.data.message,
+      })
     }
   }
 }

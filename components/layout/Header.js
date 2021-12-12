@@ -2,15 +2,11 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from '../../redux/actions/userActions'
-import ButtonLoader from '../ButtonLoader'
 import { signOut } from 'next-auth/client'
 
 const Header = () => {
   const dispatch = useDispatch()
   const { loading, user } = useSelector((state) => state.userProfile)
-
-  console.log(loading)
-  console.log(user)
 
   useEffect(() => {
     if (!user) {
@@ -59,7 +55,7 @@ const Header = () => {
               <Link href="/me/update">
                 <a className="dropdown-item">Profile</a>
               </Link>
-              <div class="dropdown-divider"></div>
+              <div className="dropdown-divider"></div>
               <Link href="/">
                 <a
                   className="dropdown-item text-danger"
