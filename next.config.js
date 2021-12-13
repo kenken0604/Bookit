@@ -11,8 +11,8 @@ module.exports = {
     SMTP_PORT: '2525',
     SMTP_USER: '05203e7c0a6179',
     SMTP_PASSWORD: '4f01184bea9347',
-    SMTP_FROM_EMAIL: 'Bookit',
-    SMTP_FROM_NAME: 'noreply@bookit.com',
+    SMTP_FROM_EMAIL: 'noreply@bookit.com',
+    SMTP_FROM_NAME: 'Bookit',
   },
   images: {
     domains: ['res.cloudinary.com'],

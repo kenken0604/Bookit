@@ -1,4 +1,5 @@
 import User from '../models/userModel'
+import crypto from 'crypto'
 
 import ErrorHandler from '../utils/errorHandler'
 import catchAsyncError from '../middlewares/catchAsyncError'
@@ -101,8 +102,8 @@ export const updateUserProfile = catchAsyncError(async (req, res, next) => {
 })
 
 // @func    forgot password
-// @route   get /api/password/forgot
-// @access  private
+// @route   post /api/password/forgot
+// @access  public
 export const forgotPassword = catchAsyncError(async (req, res) => {
   const user = await User.findOne({ email: req.body })
 
@@ -119,7 +120,7 @@ export const forgotPassword = catchAsyncError(async (req, res) => {
 
   //取得完整路徑
   const { origin } = absoluteUrl(req)
-  const resetURL = `${origin}/pasword/reset/${resetToken}`
+  const resetURL = `${origin}/password/reset/${resetToken}`
 
   //準備信件內容 \n代表換行
   const message = `Your password reset url is as follow: \n\n ${resetURL} \n\n\ If you have not requested this email, then ignore it.`
@@ -134,7 +135,7 @@ export const forgotPassword = catchAsyncError(async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: `Email sent to: ${user.email}`,
+      message: `Email sent to: ${user.email}, please check.`,
     })
   } catch (error) {
     //*將重設token回歸
@@ -145,5 +146,44 @@ export const forgotPassword = catchAsyncError(async (req, res) => {
 
     res.status(500)
     throw new Error(error.message)
+  }
+})
+
+// @func    reset password
+// @route   post /api/password/reset/:token
+// @access  public
+export const resetPassword = catchAsyncError(async (req, res) => {
+  //因為製造的來源一樣所以也會製成一樣的token
+  const resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(req.query.token)
+    .digest('hex')
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() }, //*如果此時間大於expire就無法搜尋
+  })
+
+  if (user) {
+    if (req.body.password !== req.body.confirmPassword) {
+      res.status(400)
+      throw new Error('Password do not match.')
+    }
+
+    user.password = req.body.password
+
+    //將reset回歸
+    user.resetPasswordToken = undefined
+    user.resetPasswordExpire = undefined
+
+    await user.save()
+
+    res.status(200).json({
+      success: true,
+      message: `Password updated successfully, redirect to Login Page.`,
+    })
+  } else {
+    res.status(400)
+    throw new Error('Password reset token is invalid or has been expired.')
   }
 })

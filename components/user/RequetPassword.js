@@ -34,7 +34,7 @@ const RequestPassword = () => {
       <div className="row wrapper">
         <div className="col-10 col-lg-5">
           <form className="shadow" onSubmit={submitHandler}>
-            <h1 className="mb-3">Reset Password</h1>
+            <h1 className="mb-3">Request Password</h1>
 
             <div className="form-group">
               <label htmlFor="email">Email</label>
@@ -48,7 +48,7 @@ const RequestPassword = () => {
             </div>
 
             <button className="btn btn-block py-2">
-              {loading ? <ButtonLoader /> : 'Send Email'}
+              {loading ? <ButtonLoader /> : 'SEND EMAIL'}
             </button>
           </form>
         </div>

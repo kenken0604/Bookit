@@ -3,6 +3,9 @@ import {
   FORGOT_PASSWORD_FAIL,
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
   USER_PROFILE_FAIL,
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
@@ -117,6 +120,35 @@ export const userPasswordReducer = (state = {}, action) => {
         message: payload.message,
       }
     case FORGOT_PASSWORD_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//reset password
+export const userPasswordResetReducer = (state = {}, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case RESET_PASSWORD_REQUEST:
+      return {
+        loading: true,
+      }
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        loading: false,
+        success: payload.success, //從後端傳送成功訊息
+        message: payload.message,
+      }
+    case RESET_PASSWORD_FAIL:
       return {
         loading: false,
         error: payload,
