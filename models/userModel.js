@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
+import crypto from 'crypto'
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -56,6 +57,21 @@ userSchema.pre('save', async function (next) {
 //比對密碼
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
+}
+
+//產生忘記密碼的token
+userSchema.methods.getResetPasswordToken = function () {
+  //產生token
+  const resetToken = crypto.randomBytes(20).toString('hex')
+  //加密方法
+  this.resetPasswordToken = crypto
+    .createHash('sha256') //演算方法
+    .update(resetToken) //加密密碼，使用字串即可
+    .digest('hex') //16進位
+  //設定過期時間
+  this.resetPasswordExpire = Date.now() + 30 * 60 * 1000 //當下時間再過30分鐘
+
+  return resetToken
 }
 
 export default mongoose.models.User || mongoose.model('User', userSchema)

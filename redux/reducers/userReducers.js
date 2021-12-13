@@ -1,5 +1,8 @@
 import {
   CLEAR_ERRORS,
+  FORGOT_PASSWORD_FAIL,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
   USER_PROFILE_FAIL,
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
@@ -82,9 +85,38 @@ export const userUpdateReducer = (state = {}, action) => {
     case USER_UPDATE_SUCCESS:
       return {
         loading: false,
-        success: payload,
+        success: payload, //從後端傳送成功訊息
       }
     case USER_UPDATE_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//forgot password request
+export const userPasswordReducer = (state = {}, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case FORGOT_PASSWORD_REQUEST:
+      return {
+        loading: true,
+      }
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        loading: false,
+        success: payload.success, //從後端傳送成功訊息
+        message: payload.message,
+      }
+    case FORGOT_PASSWORD_FAIL:
       return {
         loading: false,
         error: payload,

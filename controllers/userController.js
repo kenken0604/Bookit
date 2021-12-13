@@ -2,8 +2,10 @@ import User from '../models/userModel'
 
 import ErrorHandler from '../utils/errorHandler'
 import catchAsyncError from '../middlewares/catchAsyncError'
+import sendEmail from '../utils/sendEmail'
 
 import cloudinary from 'cloudinary'
+import absoluteUrl from 'next-absolute-url'
 
 //setting up cloudinary config
 cloudinary.config({
@@ -96,4 +98,52 @@ export const updateUserProfile = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
   })
+})
+
+// @func    forgot password
+// @route   get /api/password/forgot
+// @access  private
+export const forgotPassword = catchAsyncError(async (req, res) => {
+  const user = await User.findOne({ email: req.body })
+
+  if (!user) {
+    res.status(404)
+    throw new Error('User not found with this email.')
+  }
+
+  //得到重置token
+  const resetToken = user.getResetPasswordToken()
+
+  //將重設token儲存到user上
+  await user.save({ validateBeforeSave: false }) //關閉審查功能
+
+  //取得完整路徑
+  const { origin } = absoluteUrl(req)
+  const resetURL = `${origin}/pasword/reset/${resetToken}`
+
+  //準備信件內容 \n代表換行
+  const message = `Your password reset url is as follow: \n\n ${resetURL} \n\n\ If you have not requested this email, then ignore it.`
+
+  try {
+    //執行送信程式
+    await sendEmail({
+      email: user.email,
+      subject: 'Bookit Password Reset Inform',
+      message,
+    })
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to: ${user.email}`,
+    })
+  } catch (error) {
+    //*將重設token回歸
+    user.resetPasswordToken = undefined //*
+    user.resetPasswordExpire = undefined //*
+
+    await user.save({ validateBeforeSave: false }) //儲存上面的指定
+
+    res.status(500)
+    throw new Error(error.message)
+  }
 })

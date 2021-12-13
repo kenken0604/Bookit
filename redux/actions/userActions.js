@@ -3,6 +3,9 @@ import absoluteURL from 'next-absolute-url'
 
 import {
   CLEAR_ERRORS,
+  FORGOT_PASSWORD_FAIL,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
   USER_PROFILE_FAIL,
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
@@ -78,9 +81,35 @@ export const updateProfile = (updateInfo) => {
         payload: data.success,
       })
     } catch (error) {
-      console.log(error)
       dispatch({
         type: USER_UPDATE_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//forgot password request
+export const requestPassword = (email) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: FORGOT_PASSWORD_REQUEST })
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const { data } = await axios.post(`/api/password/forgot`, email, config) //是否需要config加密token
+
+      dispatch({
+        type: FORGOT_PASSWORD_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: FORGOT_PASSWORD_FAIL,
         payload: error.response.data.message,
       })
     }
