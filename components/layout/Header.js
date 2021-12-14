@@ -67,11 +67,13 @@ const Header = () => {
             </div>
           </div>
         ) : (
-          <Link href="/login">
-            <a className="btn btn-danger px-4 text-white login-header-btn float-right">
-              Login
-            </a>
-          </Link>
+          !loading && (
+            <Link href="/login">
+              <a className="btn btn-danger px-4 text-white login-header-btn float-right">
+                Login
+              </a>
+            </Link>
+          )
         )}
       </div>
     </nav>

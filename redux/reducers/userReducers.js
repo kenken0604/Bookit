@@ -46,7 +46,10 @@ export const userRegisterReducer = (state = {}, action) => {
 }
 
 //get user profile
-export const userProfileReducer = (state = { user: null }, action) => {
+export const userProfileReducer = (
+  state = { loading: true, user: null }, //*加入loading狀態讓頁面避免閃爍
+  action,
+) => {
   const { type, payload } = action
   switch (type) {
     case USER_PROFILE_REQUEST:
