@@ -12,7 +12,11 @@ import 'react-datepicker/dist/react-datepicker.css'
 import Rating from '../room/Rating'
 import RoomFeatures from './RoomFeatures'
 import { clearErrors } from '../../redux/actions/roomActions'
-import { createNewBooking } from '../../redux/actions/bookingActions'
+import {
+  checkBookedDate,
+  checkBooking,
+  createNewBooking,
+} from '../../redux/actions/bookingActions'
 
 const RoomDetails = () => {
   const [checkInDate, setcheckInDate] = useState()
@@ -21,10 +25,23 @@ const RoomDetails = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.userProfile)
   const { room } = useSelector((state) => state.roomDetails)
   const { loading, success, error } = useSelector(
     (state) => state.bookingCreate,
   )
+  const { isAvailable } = useSelector((state) => state.bookingCheck)
+  const { dates } = useSelector((state) => state.bookedDate)
+
+  const roomID = router.query.id
+
+  let excludedDates = []
+  dates.forEach((date) => {
+    excludedDates.push(new Date(date))
+  })
+
+  console.log(dates)
+  console.log(excludedDates)
 
   useEffect(() => {
     if (!room) {
@@ -39,7 +56,9 @@ const RoomDetails = () => {
     if (error) {
       toast.error(error)
     }
-  }, [room, success, error])
+
+    dispatch(checkBookedDate(roomID))
+  }, [room, success, error, roomID])
 
   const onChange = (dates) => {
     const [checkInDate, checkOutDate] = dates
@@ -49,10 +68,11 @@ const RoomDetails = () => {
     if (checkInDate && checkOutDate) {
       const days = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24) + 1
       setDaysOfStay(days)
+
+      dispatch(checkBooking(roomID, checkInDate, checkOutDate))
     }
   }
 
-  const roomID = router.query.id
   const amountPaid = room.pricePerNight * daysOfStay
 
   const detail = {
@@ -62,7 +82,7 @@ const RoomDetails = () => {
     daysOfStay,
     amountPaid,
     paymentInfo: {
-      id: 'STRIPE_PAYMENT_ID',
+      id: 'STRIPE_PAYMENT_ID', //暫時資料
       status: 'STRIPE_PAYMENT_STATUS',
     },
   }
@@ -111,22 +131,45 @@ const RoomDetails = () => {
 
               <hr />
 
-              <p className="mt-5 mb-3">Pick Check In & Check Out Date</p>
+              <p className="my-3">Pick Check In & Check Out Date</p>
               <DatePicker
                 className="w-100"
                 selected={checkInDate}
                 onChange={onChange}
                 startDate={checkInDate}
                 endDate={checkOutDate}
+                minDate={new Date()}
+                excludeDates={excludedDates}
                 selectsRange
                 inline
               />
-              <button
-                className="btn btn-block py-2 booking-btn"
-                onClick={bookingHandler}
-              >
-                {loading ? <ButtonLoader /> : 'PAY'}
-              </button>
+
+              {isAvailable === true && (
+                <div className="alert alert-success my-3 font-weight-bold">
+                  Room is available. <p className="my-0">Book it right now.</p>
+                </div>
+              )}
+
+              {isAvailable === false && (
+                <div className="alert alert-danger my-3 font-weight-bold">
+                  Room is not available. Please try different Dates.
+                </div>
+              )}
+
+              {isAvailable && !user && (
+                <div className="alert alert-danger my-3 font-weight-bold">
+                  Login to book room.
+                </div>
+              )}
+
+              {isAvailable && user && (
+                <button
+                  className="btn btn-block py-2 booking-btn"
+                  onClick={bookingHandler}
+                >
+                  {loading ? <ButtonLoader /> : 'PAY'}
+                </button>
+              )}
             </div>
           </div>
         </div>
