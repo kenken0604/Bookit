@@ -1,4 +1,6 @@
 import axios from 'axios'
+import absoluteURL from 'next-absolute-url'
+
 import {
   BOOKING_CHECK_FAIL,
   BOOKING_CHECK_REQUEST,
@@ -8,6 +10,10 @@ import {
   BOOKING_CREATE_SUCCESS,
   CHECK_DATE_FAIL,
   CHECK_DATE_SUCCESS,
+  SHOW_MY_BOOKING_FAIL,
+  SHOW_MY_BOOKING_REQUEST,
+  SHOW_MY_BOOKING_RESET,
+  SHOW_MY_BOOKING_SUCCESS,
 } from '../constants/bookingConstants'
 
 //create new booking
@@ -75,6 +81,34 @@ export const checkBookedDate = (roomID) => {
     } catch (error) {
       dispatch({
         type: CHECK_DATE_FAIL,
+        payload: error.response.data.message, //*
+      })
+    }
+  }
+}
+
+// booking
+export const getBookings = (authCookie, req) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SHOW_MY_BOOKING_REQUEST })
+
+      const { origin } = absoluteURL(req)
+      const config = {
+        headers: {
+          cookie: authCookie,
+        },
+      }
+
+      const { data } = await axios.get(`${origin}/api/bookings/me`, config)
+
+      dispatch({
+        type: SHOW_MY_BOOKING_SUCCESS,
+        payload: data.mybookings, //*
+      })
+    } catch (error) {
+      dispatch({
+        type: SHOW_MY_BOOKING_FAIL,
         payload: error.response.data.message, //*
       })
     }

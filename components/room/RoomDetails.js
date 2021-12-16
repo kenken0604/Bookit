@@ -37,11 +37,11 @@ const RoomDetails = () => {
 
   let excludedDates = []
   dates.forEach((date) => {
-    excludedDates.push(new Date(date))
+    excludedDates.push(new Date(date)) //換成新日期格式
   })
 
-  console.log(dates)
-  console.log(excludedDates)
+  // console.log(dates)
+  // console.log(excludedDates)
 
   useEffect(() => {
     if (!room) {
@@ -145,14 +145,15 @@ const RoomDetails = () => {
               />
 
               {isAvailable === true && (
-                <div className="alert alert-success my-3 font-weight-bold">
+                <div className="alert alert-success my-3 font-weight-bold text-center">
                   Room is available. <p className="my-0">Book it right now.</p>
                 </div>
               )}
 
               {isAvailable === false && (
-                <div className="alert alert-danger my-3 font-weight-bold">
-                  Room is not available. Please try different Dates.
+                <div className="alert alert-danger my-3 font-weight-bold text-center">
+                  Room is not available.{' '}
+                  <p className="my-0">Please try different Dates.</p>
                 </div>
               )}
 

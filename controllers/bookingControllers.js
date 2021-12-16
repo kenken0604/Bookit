@@ -97,3 +97,20 @@ export const checkBookedDates = catchAsyncError(async (req, res) => {
     bookingDates,
   })
 })
+
+// @func    display personal bookings
+// @route   get /api/bookings/me
+// @access  private
+export const getMyBookings = catchAsyncError(async (req, res) => {
+  const mybookings = await Booking.find({ user: req.user._id })
+
+  if (mybookings) {
+    res.status(200).json({
+      success: true,
+      mybookings,
+    })
+  } else {
+    res.status(404)
+    throw new Error('No booking found.')
+  }
+})
