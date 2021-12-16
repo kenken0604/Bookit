@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 
 import { MDBDataTable } from 'mdbreact'
 import { toast } from 'react-toastify'
-import { getBookings } from '../../redux/actions/bookingActions'
 import { CLEAR_ERRORS } from '../../redux/constants/bookingConstants'
 
 const MyBookings = () => {

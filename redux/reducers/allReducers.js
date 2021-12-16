@@ -3,6 +3,7 @@ import {
   bookedDateReducer,
   bookingCheckReducer,
   bookingCreateReducer,
+  bookingDetailsReducer,
   bookingsGetReducer,
 } from './bookingReducers'
 import { roomDetailsReducer, roomsListReducer } from './roomReducers'
@@ -26,6 +27,7 @@ const allReducers = combineReducers({
   bookingCheck: bookingCheckReducer,
   bookedDate: bookedDateReducer,
   bookingsGet: bookingsGetReducer,
+  bookingDetails: bookingDetailsReducer,
 })
 
 export default allReducers

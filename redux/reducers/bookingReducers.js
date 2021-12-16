@@ -6,12 +6,12 @@ import {
   BOOKING_CREATE_FAIL,
   BOOKING_CREATE_REQUEST,
   BOOKING_CREATE_SUCCESS,
+  BOOKING_DETAILS_FAIL,
+  BOOKING_DETAILS_SUCCESS,
   CHECK_DATE_FAIL,
   CHECK_DATE_SUCCESS,
   CLEAR_ERRORS,
   SHOW_MY_BOOKING_FAIL,
-  SHOW_MY_BOOKING_REQUEST,
-  SHOW_MY_BOOKING_RESET,
   SHOW_MY_BOOKING_SUCCESS,
 } from '../constants/bookingConstants'
 
@@ -44,7 +44,7 @@ export const bookingCreateReducer = (state = {}, action) => {
   }
 }
 
-//check booking
+//check booking available
 export const bookingCheckReducer = (state = { isAvailable: null }, action) => {
   const { type, payload } = action
   switch (type) {
@@ -77,7 +77,7 @@ export const bookingCheckReducer = (state = { isAvailable: null }, action) => {
   }
 }
 
-//check booking
+//check booking date
 export const bookedDateReducer = (state = { dates: [] }, action) => {
   const { type, payload } = action
   switch (type) {
@@ -94,25 +94,35 @@ export const bookedDateReducer = (state = { dates: [] }, action) => {
   }
 }
 
-//create booking
+//get personal bookings
 export const bookingsGetReducer = (state = { bookings: [] }, action) => {
   const { type, payload } = action
   switch (type) {
-    case SHOW_MY_BOOKING_REQUEST:
-      return {
-        loading: true,
-      }
     case SHOW_MY_BOOKING_SUCCESS:
       return {
         loading: false,
         bookings: payload,
       }
-    case SHOW_MY_BOOKING_RESET:
+    case SHOW_MY_BOOKING_FAIL:
       return {
         loading: false,
-        bookings: [],
+        error: payload,
       }
-    case SHOW_MY_BOOKING_FAIL:
+    default:
+      return state
+  }
+}
+
+//get booking details
+export const bookingDetailsReducer = (state = { booking: null }, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case BOOKING_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        booking: payload,
+      }
+    case BOOKING_DETAILS_FAIL:
       return {
         loading: false,
         error: payload,

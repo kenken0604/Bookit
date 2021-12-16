@@ -11,9 +11,9 @@ import {
   CHECK_DATE_FAIL,
   CHECK_DATE_SUCCESS,
   SHOW_MY_BOOKING_FAIL,
-  SHOW_MY_BOOKING_REQUEST,
-  SHOW_MY_BOOKING_RESET,
   SHOW_MY_BOOKING_SUCCESS,
+  BOOKING_DETAILS_SUCCESS,
+  BOOKING_DETAILS_FAIL,
 } from '../constants/bookingConstants'
 
 //create new booking
@@ -43,7 +43,7 @@ export const createNewBooking = (detail) => {
   }
 }
 
-//check booking
+//check booking available
 export const checkBooking = (roomID, checkInDate, checkOutDate) => {
   return async (dispatch) => {
     try {
@@ -66,7 +66,7 @@ export const checkBooking = (roomID, checkInDate, checkOutDate) => {
   }
 }
 
-//check booking
+//check booking date
 export const checkBookedDate = (roomID) => {
   return async (dispatch) => {
     try {
@@ -87,12 +87,10 @@ export const checkBookedDate = (roomID) => {
   }
 }
 
-// booking
-export const getBookings = (authCookie, req) => {
+// get personal bookings
+export const getBookings = (authCookie, req, id) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: SHOW_MY_BOOKING_REQUEST })
-
       const { origin } = absoluteURL(req)
       const config = {
         headers: {
@@ -109,6 +107,32 @@ export const getBookings = (authCookie, req) => {
     } catch (error) {
       dispatch({
         type: SHOW_MY_BOOKING_FAIL,
+        payload: error.response.data.message, //*
+      })
+    }
+  }
+}
+
+// get booking details
+export const bookingDetails = (authCookie, req, id) => {
+  return async (dispatch) => {
+    try {
+      const { origin } = absoluteURL(req)
+      const config = {
+        headers: {
+          cookie: authCookie,
+        },
+      }
+
+      const { data } = await axios.get(`${origin}/api/bookings/${id}`, config)
+
+      dispatch({
+        type: BOOKING_DETAILS_SUCCESS,
+        payload: data.booking, //*
+      })
+    } catch (error) {
+      dispatch({
+        type: BOOKING_DETAILS_FAIL,
         payload: error.response.data.message, //*
       })
     }

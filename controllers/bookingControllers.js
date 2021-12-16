@@ -114,3 +114,28 @@ export const getMyBookings = catchAsyncError(async (req, res) => {
     throw new Error('No booking found.')
   }
 })
+
+// @func    get booking detail
+// @route   get /api/bookings/:id
+// @access  private
+export const getBookingDetail = catchAsyncError(async (req, res) => {
+  const booking = await Booking.findById(req.query.id)
+    .populate({
+      path: 'room',
+      select: 'name pricePerNight images',
+    })
+    .populate({
+      path: 'user',
+      select: 'name email',
+    })
+
+  if (booking) {
+    res.status(200).json({
+      success: true,
+      booking,
+    })
+  } else {
+    res.status(404)
+    throw new Error('booking not found.')
+  }
+})
