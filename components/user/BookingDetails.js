@@ -3,15 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { MDBDataTable } from 'mdbreact'
 import { toast } from 'react-toastify'
 import { CLEAR_ERRORS } from '../../redux/constants/bookingConstants'
 
 const BookingDetails = () => {
   const dispatch = useDispatch()
   const { booking, error } = useSelector((state) => state.bookingDetails)
-
-  console.log(booking)
 
   useEffect(() => {
     if (error) {
@@ -27,7 +24,7 @@ const BookingDetails = () => {
             <button className="btn btn-danger">Go Back</button>
           </Link>
           <h2 className="mt-0 my-4">Booking #{booking._id}</h2>
-          <h4 className="mb-4">User Info</h4>
+          <h4 className="mb-4">Client Info</h4>
           <p>
             <b>Name: </b>
             {booking.user.name}
