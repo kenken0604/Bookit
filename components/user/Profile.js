@@ -25,7 +25,6 @@ const Profile = () => {
       setName(user.name)
       setEmail(user.email)
       setAvatar(user.avatar.url)
-      console.log(user.avatar.url)
     } else {
       dispatch(getUserProfile())
     }

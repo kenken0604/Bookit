@@ -25,7 +25,7 @@ const RoomItem = ({ room }) => {
               <small> /night</small>
             </p>
             <span className="float-right">
-              <Rating value={room.rating} />
+              <Rating value={room.ratings} />
               {room.numOfReviews} Reviews
             </span>
           </div>

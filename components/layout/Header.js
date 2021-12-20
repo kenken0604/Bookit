@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from '../../redux/actions/userActions'
 import { signOut } from 'next-auth/client'
@@ -30,41 +32,29 @@ const Header = () => {
         </div>
 
         {user && user.name ? (
-          <div className="dropdown">
-            <a
-              className="btn dropdown-toggle"
-              role="button"
-              id="dropdownMenuLink"
-              data-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <figure className="avatar avatar-nav">
-                <img
-                  src={user.avatar.url}
-                  alt={user.name}
-                  className="rounded-circle"
-                />
-              </figure>
-              <span>{user && user.name}</span>
-            </a>
+          <div className="d-flex justify-content-center">
+            <figure className="avatar avatar-nav">
+              <img
+                src={user.avatar.url}
+                alt={user.name}
+                className="rounded-circle"
+              />
+            </figure>
+            <NavDropdown title={user.name} id="username">
+              <NavDropdown.Item href="/bookings/me">
+                My Bookings
+              </NavDropdown.Item>
 
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <Link href="/bookings/me">
-                <a className="dropdown-item">My Bookings</a>
-              </Link>
-              <Link href="/me/update">
-                <a className="dropdown-item">Profile</a>
-              </Link>
-              <div className="dropdown-divider"></div>
-              <Link href="/">
-                <a
-                  className="dropdown-item text-danger"
-                  onClick={() => signOut()}
-                >
-                  Logout
-                </a>
-              </Link>
-            </div>
+              <NavDropdown.Item href="/me/update">Profile</NavDropdown.Item>
+
+              <NavDropdown.Divider></NavDropdown.Divider>
+              <NavDropdown.Item
+                onClick={() => signOut()}
+                className="text-danger"
+              >
+                Logout
+              </NavDropdown.Item>
+            </NavDropdown>
           </div>
         ) : (
           !loading && (
