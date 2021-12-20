@@ -64,6 +64,7 @@ const NewReview = () => {
     })
 
     function showRatings(e) {
+      console.log(e.type)
       stars.forEach((star, index) => {
         if (e.type === 'click') {
           if (index < this.starValue) {
@@ -97,7 +98,7 @@ const NewReview = () => {
           <h3>Submit Review</h3>
 
           <div>
-            <ul className="stars" onClick={setUserRatings}>
+            <ul className="stars" onMouseOver={setUserRatings}>
               <li className="star">
                 <i className="fa fa-star"></i>
               </li>
