@@ -17,6 +17,8 @@ import {
   checkBooking,
   createNewBooking,
 } from '../../redux/actions/bookingActions'
+import NewReview from '../reviews/NewReview'
+import ListReview from '../reviews/ListReview'
 
 const RoomDetails = () => {
   const [checkInDate, setcheckInDate] = useState()
@@ -172,6 +174,16 @@ const RoomDetails = () => {
                 </button>
               )}
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12 col-md-6 col-lg-8">
+            <NewReview />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12 col-md-6 col-lg-8">
+            <ListReview reviews={room.reviews} />
           </div>
         </div>
       </div>

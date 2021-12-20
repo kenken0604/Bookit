@@ -6,7 +6,12 @@ import {
   bookingDetailsReducer,
   bookingsGetReducer,
 } from './bookingReducers'
-import { roomDetailsReducer, roomsListReducer } from './roomReducers'
+import {
+  checkReviewAvailableReducer,
+  reviewCreateReducer,
+  roomDetailsReducer,
+  roomsListReducer,
+} from './roomReducers'
 import {
   userPasswordReducer,
   userPasswordResetReducer,
@@ -18,6 +23,8 @@ import {
 const allReducers = combineReducers({
   roomsList: roomsListReducer,
   roomDetails: roomDetailsReducer,
+  reviewCreate: reviewCreateReducer,
+  reviewAvailable: checkReviewAvailableReducer,
   userRegister: userRegisterReducer,
   userProfile: userProfileReducer,
   userUpdate: userUpdateReducer,

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
-import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from '../../redux/actions/userActions'
 import { signOut } from 'next-auth/client'

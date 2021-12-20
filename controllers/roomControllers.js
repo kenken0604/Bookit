@@ -1,4 +1,5 @@
 import Room from '../models/roomModel'
+import Booking from '../models/bookingModel'
 
 import ErrorHandler from '../utils/errorHandler'
 import catchAsyncError from '../middlewares/catchAsyncError'
@@ -104,4 +105,67 @@ export const deleteRoom = catchAsyncError(async (req, res, next) => {
   } else {
     throw next(new ErrorHandler('Room not found', 404))
   }
+})
+
+// @func    create room review
+// @route   put /api/reviews
+// @access  private
+export const createRoomReview = catchAsyncError(async (req, res) => {
+  const { rating, comment, roomID } = req.body
+
+  const review = {
+    user: req.user._id,
+    name: req.user.name,
+    rating: Number(rating),
+    comment,
+  }
+
+  const room = await Room.findById(roomID)
+
+  const isReviewed = room.reviews.find(
+    (review) => review.user.toString() === req.user._id.toString(),
+  )
+  //會回傳undefined或整個物件
+
+  if (isReviewed) {
+    //有找到就覆蓋留言
+    room.reviews.forEach((review) => {
+      if (review.user.toString() === req.user._id.toString()) {
+        review.comment = comment
+        review.rating = rating
+      }
+    })
+  } else {
+    //沒找到就增加
+    room.reviews.push(review)
+  }
+
+  //更改資料庫資料
+  room.numOfReviews = room.reviews.length
+  room.ratings =
+    room.reviews.reduce((acc, item) => item.rating + acc, 0) /
+    room.reviews.length
+
+  //更新資料
+  await room.save({ validateBeforeSave: false })
+
+  res.status(200).json({
+    success: true,
+  })
+})
+
+// @func    Check Review Availability
+// @route   get /api/reviews/check_review_availability
+// @access  private
+export const checkReviewAvailability = catchAsyncError(async (req, res) => {
+  const { roomID } = req.query
+
+  const bookings = await Booking.find({ user: req.user._id, room: roomID }) //多重條件搜尋
+
+  let isReviewAvailable = false
+  if (bookings.length > 0) isReviewAvailable = true
+
+  res.status(200).json({
+    isReviewAvailable,
+  })
 })

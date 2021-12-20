@@ -7,6 +7,12 @@ import {
   CLEAR_ERRORS,
   ROOM_DETAILS_SUCCESS,
   ROOM_DETAILS_FAIL,
+  REVIEW_CREATE_REQUEST,
+  REVIEW_CREATE_SUCCESS,
+  REVIEW_CREATE_FAIL,
+  REVIEW_AVAILABLE_REQUEST,
+  REVIEW_AVAILABLE_SUCCESS,
+  REVIEW_AVAILABLE_FAIL,
 } from '../constants/roomConstants'
 
 //list all rooms
@@ -61,6 +67,56 @@ export const getRoomDetails = (req, id) => {
       dispatch({
         type: ROOM_DETAILS_FAIL,
         payload: error, //*
+      })
+    }
+  }
+}
+
+//create room review
+export const createReview = (reviewData) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: REVIEW_CREATE_REQUEST })
+
+      const config = {
+        header: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const { data } = await axios.put(`/api/reviews`, reviewData, config)
+
+      dispatch({
+        type: REVIEW_CREATE_SUCCESS,
+        payload: data.success,
+      })
+    } catch (error) {
+      dispatch({
+        type: REVIEW_CREATE_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//check review availability
+export const checkReviewAvailable = (roomID) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: REVIEW_AVAILABLE_REQUEST })
+
+      const { data } = await axios.get(
+        `/api/reviews/check_review_availability?roomID=${roomID}`,
+      )
+
+      dispatch({
+        type: REVIEW_AVAILABLE_SUCCESS,
+        payload: data.isReviewAvailable,
+      })
+    } catch (error) {
+      dispatch({
+        type: REVIEW_AVAILABLE_FAIL,
+        payload: error.response.data.message,
       })
     }
   }
