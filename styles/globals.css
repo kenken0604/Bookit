@@ -11,6 +11,10 @@ body {
   min-height: 80vh;
 }
 
+.w-15 {
+  width: 15.75px;
+}
+
 /* Scroll Bar */
 
 ::-webkit-scrollbar-track {
@@ -390,12 +394,12 @@ nav {
   padding-left: 0;
 }
 
-.red {
-  color: #e61e4d;
+.orange {
+  color: orange;
 }
 
-.light-red {
-  color: #f74f77;
+.yellow {
+  color: rgb(255, 193, 77);
 }
 
 /* Footer */
