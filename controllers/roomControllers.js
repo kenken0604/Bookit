@@ -4,6 +4,7 @@ import Booking from '../models/bookingModel'
 import ErrorHandler from '../utils/errorHandler'
 import catchAsyncError from '../middlewares/catchAsyncError'
 // import apiFeature from '../utils/apiFeature'
+import cloudinary from 'cloudinary'
 
 // @func    get a room
 // @route   get /api/rooms
@@ -66,8 +67,6 @@ export const createRoom = catchAsyncError(async (req, res) => {
   for (let i = 0; images.length > i; i++) {
     const result = await cloudinary.v2.uploader.upload(images[i], {
       folder: 'bookit/rooms',
-      width: '150',
-      crop: 'scale',
     })
 
     imageLinks.push({
@@ -75,6 +74,9 @@ export const createRoom = catchAsyncError(async (req, res) => {
       url: result.secure_url,
     })
   }
+
+  req.body.images = imageLinks
+  req.body.user = req.user._id
 
   const room = await Room.create(req.body) //*
 

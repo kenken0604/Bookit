@@ -17,6 +17,7 @@ import {
   ROOM_CREATE_REQUEST,
   ROOM_CREATE_SUCCESS,
   ROOM_CREATE_FAIL,
+  ROOM_CREATE_RESET,
 } from '../constants/roomConstants'
 
 //get all rooms
@@ -175,6 +176,10 @@ export const roomCreateReducer = (state = { room: {} }, action) => {
       return {
         loading: false,
         error: payload,
+      }
+    case ROOM_CREATE_RESET:
+      return {
+        success: false,
       }
     case CLEAR_ERRORS:
       return {

@@ -1,11 +1,12 @@
+import React from 'react'
 import { getSession } from 'next-auth/client'
-import Layout from '../../components/layout/Layout'
-import AllRooms from '../../components/admin/AllRooms'
+import Layout from '../../../components/layout/Layout'
+import NewRoom from '../../../components/admin/NewRoom'
 
-const adminRoomList = () => {
+const createNewRoom = () => {
   return (
-    <Layout title="Room List">
-      <AllRooms />
+    <Layout title="Create Room">
+      <NewRoom />
     </Layout>
   )
 }
@@ -31,4 +32,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default adminRoomList
+export default createNewRoom

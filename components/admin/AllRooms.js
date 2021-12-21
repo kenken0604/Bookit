@@ -83,7 +83,14 @@ const AllRooms = () => {
         <Loader />
       ) : (
         <>
-          <h1 className="my-5">{rooms && rooms.length} Rooms on list</h1>
+          <h1 className="my-5">
+            {rooms && rooms.length} Rooms on list
+            <Link href="/admin/rooms/createNewRoom">
+              <a className="mt-0 btn text-white float-right new-room-btn">
+                Create Room
+              </a>
+            </Link>
+          </h1>
 
           <MDBDataTable
             data={setAllRooms()}
