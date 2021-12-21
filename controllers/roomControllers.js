@@ -59,6 +59,23 @@ export const getRoomByID = catchAsyncError(async (req, res, next) => {
 // @route   post /api/rooms
 // @access  private
 export const createRoom = catchAsyncError(async (req, res) => {
+  const images = req.body.images
+
+  const imageLinks = []
+
+  for (let i = 0; images.length > i; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: 'bookit/rooms',
+      width: '150',
+      crop: 'scale',
+    })
+
+    imageLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    })
+  }
+
   const room = await Room.create(req.body) //*
 
   res.status(200).json({
@@ -167,5 +184,17 @@ export const checkReviewAvailability = catchAsyncError(async (req, res) => {
 
   res.status(200).json({
     isReviewAvailable,
+  })
+})
+
+// @func    admin gets all room
+// @route   get /api/admin/rooms
+// @access  private
+export const roomList = catchAsyncError(async (req, res) => {
+  const rooms = await Room.find()
+
+  res.status(200).json({
+    success: true,
+    rooms,
   })
 })

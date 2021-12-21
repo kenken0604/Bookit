@@ -64,7 +64,7 @@ const NewReview = () => {
     })
 
     function showRatings(e) {
-      console.log(e.type)
+      // console.log(e.type)
       stars.forEach((star, index) => {
         if (e.type === 'click') {
           if (index < this.starValue) {

@@ -53,6 +53,7 @@ const RoomDetails = () => {
 
     if (success) {
       toast.success('Your booking is done.')
+      router.push('/bookings/me')
     }
 
     if (error) {
@@ -170,7 +171,11 @@ const RoomDetails = () => {
                   className="btn btn-block py-2 booking-btn"
                   onClick={bookingHandler}
                 >
-                  {loading ? <ButtonLoader /> : 'PAY'}
+                  {loading ? (
+                    <ButtonLoader />
+                  ) : (
+                    `PAY - $${room.pricePerNight * daysOfStay}`
+                  )}
                 </button>
               )}
             </div>

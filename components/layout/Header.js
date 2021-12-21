@@ -47,6 +47,22 @@ const Header = () => {
               <NavDropdown.Item href="/me/update">Profile</NavDropdown.Item>
 
               <NavDropdown.Divider></NavDropdown.Divider>
+
+              {user && user.role === 'admin' && (
+                <>
+                  <NavDropdown.Item href="/admin/adminRoomList">
+                    Room List
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/adminUserList">
+                    User List
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/adminBookingList">
+                    Booking List
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider></NavDropdown.Divider>
+                </>
+              )}
+
               <NavDropdown.Item
                 onClick={() => signOut()}
                 className="text-danger"

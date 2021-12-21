@@ -13,6 +13,12 @@ import {
   REVIEW_AVAILABLE_REQUEST,
   REVIEW_AVAILABLE_SUCCESS,
   REVIEW_AVAILABLE_FAIL,
+  ADMIN_ROOMLIST_REQUEST,
+  ADMIN_ROOMLIST_SUCCESS,
+  ADMIN_ROOMLIST_FAIL,
+  ROOM_CREATE_REQUEST,
+  ROOM_CREATE_SUCCESS,
+  ROOM_CREATE_FAIL,
 } from '../constants/roomConstants'
 
 //list all rooms
@@ -116,6 +122,54 @@ export const checkReviewAvailable = (roomID) => {
     } catch (error) {
       dispatch({
         type: REVIEW_AVAILABLE_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//amin roomlist
+export const getAdminRoomlist = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ADMIN_ROOMLIST_REQUEST })
+
+      const { data } = await axios.get(`/api/admin/rooms`)
+
+      dispatch({
+        type: ADMIN_ROOMLIST_SUCCESS,
+        payload: data.rooms,
+      })
+    } catch (error) {
+      dispatch({
+        type: ADMIN_ROOMLIST_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//create new room
+export const createNewRoom = (roomData) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ROOM_CREATE_REQUEST })
+
+      const config = {
+        header: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const { data } = await axios.post(`/api/rooms`, roomData, config)
+
+      dispatch({
+        type: ROOM_CREATE_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ROOM_CREATE_FAIL,
         payload: error.response.data.message,
       })
     }

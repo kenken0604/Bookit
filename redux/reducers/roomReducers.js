@@ -11,6 +11,12 @@ import {
   REVIEW_AVAILABLE_REQUEST,
   REVIEW_AVAILABLE_SUCCESS,
   REVIEW_AVAILABLE_FAIL,
+  ADMIN_ROOMLIST_REQUEST,
+  ADMIN_ROOMLIST_SUCCESS,
+  ADMIN_ROOMLIST_FAIL,
+  ROOM_CREATE_REQUEST,
+  ROOM_CREATE_SUCCESS,
+  ROOM_CREATE_FAIL,
 } from '../constants/roomConstants'
 
 //get all rooms
@@ -109,6 +115,63 @@ export const checkReviewAvailableReducer = (
         isReviewAvailable: payload,
       }
     case REVIEW_AVAILABLE_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//admin roomlist
+export const adminRoomlistReducer = (state = { rooms: [] }, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ADMIN_ROOMLIST_REQUEST:
+      return {
+        loading: true,
+      }
+    case ADMIN_ROOMLIST_SUCCESS:
+      return {
+        loading: false,
+        rooms: payload,
+      }
+    case ADMIN_ROOMLIST_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//create new room
+export const roomCreateReducer = (state = { room: {} }, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ROOM_CREATE_REQUEST:
+      return {
+        loading: true,
+      }
+    case ROOM_CREATE_SUCCESS:
+      return {
+        loading: false,
+        success: payload.success,
+        room: payload.room,
+      }
+    case ROOM_CREATE_FAIL:
       return {
         loading: false,
         error: payload,
