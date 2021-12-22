@@ -115,7 +115,13 @@ export const deleteRoom = catchAsyncError(async (req, res, next) => {
   const room = await Room.findById(req.query.id) //next沒有params
 
   if (room) {
-    await Room.remove(room)
+    //刪除照片
+    for (let i = 0; room.images.length > i; i++) {
+      await cloudinary.v2.uploader.destroy(room.images[i].public_id) //刪除原照片
+    }
+
+    // await Room.remove(room) //這樣寫也可以
+    await room.remove()
 
     res.status(200).json({
       success: true,

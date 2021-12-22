@@ -18,6 +18,10 @@ import {
   ROOM_CREATE_SUCCESS,
   ROOM_CREATE_FAIL,
   ROOM_CREATE_RESET,
+  ROOM_DELETE_REQUEST,
+  ROOM_DELETE_SUCCESS,
+  ROOM_DELETE_FAIL,
+  ROOM_DELETE_RESET,
 } from '../constants/roomConstants'
 
 //get all rooms
@@ -180,6 +184,38 @@ export const roomCreateReducer = (state = { room: {} }, action) => {
     case ROOM_CREATE_RESET:
       return {
         success: false,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//delete room
+export const roomDeleteReducer = (state = {}, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ROOM_DELETE_REQUEST:
+      return {
+        loading: true,
+      }
+    case ROOM_DELETE_SUCCESS:
+      return {
+        loading: false,
+        isDeleted: payload,
+      }
+    case ROOM_DELETE_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case ROOM_DELETE_RESET:
+      return {
+        isDeleted: false,
       }
     case CLEAR_ERRORS:
       return {

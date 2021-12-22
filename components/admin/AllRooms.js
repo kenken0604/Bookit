@@ -7,20 +7,38 @@ import Loader from '../layout/Loader'
 import { MDBDataTable } from 'mdbreact'
 import { toast } from 'react-toastify'
 import { CLEAR_ERRORS } from '../../redux/constants/roomConstants'
-import { getAdminRoomlist } from '../../redux/actions/roomActions'
+import {
+  getAdminRoomlist,
+  adminDeleteRoom,
+} from '../../redux/actions/roomActions'
+import { ROOM_DELETE_RESET } from '../../redux/constants/roomConstants'
 
 const AllRooms = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { loading, rooms, error } = useSelector((state) => state.adminRoomlist)
+  const { isDeleted, error: deleteError } = useSelector(
+    (state) => state.roomDelete,
+  )
 
   useEffect(() => {
+    dispatch(getAdminRoomlist())
+
     if (error) {
       toast.error(error)
       dispatch({ type: CLEAR_ERRORS })
     }
-    dispatch(getAdminRoomlist())
-  }, [dispatch])
+
+    if (isDeleted) {
+      router.push('/admin/adminRoomList')
+      dispatch({ type: ROOM_DELETE_RESET })
+    }
+
+    if (deleteError) {
+      toast.error(deleteError)
+      dispatch({ type: CLEAR_ERRORS })
+    }
+  }, [dispatch, isDeleted, deleteError])
 
   const setAllRooms = () => {
     const data = {
@@ -67,7 +85,10 @@ const AllRooms = () => {
                   <i className="fas fa-edit"></i>
                 </a>
               </Link>
-              <button className="btn btn-sm btn-danger mx-2">
+              <button
+                className="btn btn-sm btn-danger mx-2"
+                onClick={() => deleteRoomHandler(room._id)}
+              >
                 <i className="fas fa-trash w-15"></i>
               </button>
             </>
@@ -75,6 +96,10 @@ const AllRooms = () => {
         }),
       )
     return data
+  }
+
+  const deleteRoomHandler = (roomID) => {
+    dispatch(adminDeleteRoom(roomID))
   }
 
   return (

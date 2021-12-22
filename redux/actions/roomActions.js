@@ -19,6 +19,9 @@ import {
   ROOM_CREATE_REQUEST,
   ROOM_CREATE_SUCCESS,
   ROOM_CREATE_FAIL,
+  ROOM_DELETE_REQUEST,
+  ROOM_DELETE_SUCCESS,
+  ROOM_DELETE_FAIL,
 } from '../constants/roomConstants'
 
 //list all rooms
@@ -128,7 +131,7 @@ export const checkReviewAvailable = (roomID) => {
   }
 }
 
-//amin roomlist
+//admin roomlist
 export const getAdminRoomlist = () => {
   return async (dispatch) => {
     try {
@@ -170,6 +173,27 @@ export const createNewRoom = (roomData) => {
     } catch (error) {
       dispatch({
         type: ROOM_CREATE_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//delete room
+export const adminDeleteRoom = (roomID) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ROOM_DELETE_REQUEST })
+
+      const { data } = await axios.delete(`/api/rooms/${roomID}`)
+
+      dispatch({
+        type: ROOM_DELETE_SUCCESS,
+        payload: data.success,
+      })
+    } catch (error) {
+      dispatch({
+        type: ROOM_DELETE_FAIL,
         payload: error.response.data.message,
       })
     }
