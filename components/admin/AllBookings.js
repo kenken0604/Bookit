@@ -6,61 +6,60 @@ import { useRouter } from 'next/router'
 import Loader from '../layout/Loader'
 import { MDBDataTable } from 'mdbreact'
 import { toast } from 'react-toastify'
-import { CLEAR_ERRORS } from '../../redux/constants/roomConstants'
+import { CLEAR_ERRORS } from '../../redux/constants/bookingConstants'
 import {
-  getAdminRoomlist,
-  adminDeleteRoom,
-} from '../../redux/actions/roomActions'
-import { ROOM_DELETE_RESET } from '../../redux/constants/roomConstants'
+  getAdminBookinglist,
+  adminDeleteBooking,
+} from '../../redux/actions/bookingActions'
 
-const AllRooms = () => {
+const AllBookings = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { loading, rooms, error } = useSelector((state) => state.adminRoomlist)
-  const { isDeleted, error: deleteError } = useSelector(
-    (state) => state.roomDelete,
+  const { loading, bookings, error } = useSelector(
+    (state) => state.adminBookinglist,
+  )
+  const { deleteLoading, deleteSuccess, deleteError } = useSelector(
+    (state) => state.bookingDelete,
   )
 
   useEffect(() => {
-    dispatch(getAdminRoomlist())
+    dispatch(getAdminBookinglist())
 
     if (error) {
       toast.error(error)
       dispatch({ type: CLEAR_ERRORS })
     }
-
-    if (isDeleted) {
-      router.push('/admin/adminRoomList')
-      dispatch({ type: ROOM_DELETE_RESET })
-    }
-
     if (deleteError) {
       toast.error(deleteError)
       dispatch({ type: CLEAR_ERRORS })
     }
-  }, [dispatch, isDeleted, deleteError])
 
-  const setAllRooms = () => {
+    if (deleteSuccess) {
+      router.push('/admin/adminBookingList')
+    }
+  }, [dispatch, error, deleteError, deleteSuccess])
+
+  const setAllBookings = () => {
     const data = {
       columns: [
         {
-          label: 'Room ID',
+          label: 'Booking ID',
           field: 'id',
           sort: 'asc', //升序排列
         },
         {
-          label: 'Name',
-          field: 'name',
+          label: 'Check In',
+          field: 'checkIn',
           sort: 'asc',
         },
         {
-          label: 'Price / Night',
-          field: 'price',
+          label: 'Check Out',
+          field: 'checkOut',
           sort: 'asc',
         },
         {
-          label: 'Category',
-          field: 'category',
+          label: 'Amount Paid',
+          field: 'amount',
           sort: 'asc',
         },
         {
@@ -71,23 +70,24 @@ const AllRooms = () => {
       ],
       rows: [],
     }
-    rooms &&
-      rooms.map((room) =>
+    bookings &&
+      bookings.map((booking) =>
         data.rows.push({
-          id: room._id,
-          name: room.name,
-          price: '$' + room.pricePerNight,
-          category: room.category,
+          id: booking._id,
+          checkIn: new Date(booking.checkInDate).toLocaleDateString(),
+          checkOut: new Date(booking.checkOutDate).toLocaleDateString(),
+          amount: '$' + booking.amountPaid,
           actions: (
             <>
-              <Link href={`/admin/rooms/${room._id}`}>
+              <Link href={`/admin/bookings/${booking._id}`}>
                 <a className="btn btn-sm btn-primary">
                   <i className="fas fa-edit"></i>
                 </a>
               </Link>
               <button
                 className="btn btn-sm btn-danger mx-2"
-                onClick={() => deleteRoomHandler(room._id)}
+                onClick={() => deleteBookingHandler(booking._id)}
+                disabled={deleteLoading ? true : false}
               >
                 <i className="fas fa-trash w-15"></i>
               </button>
@@ -98,8 +98,8 @@ const AllRooms = () => {
     return data
   }
 
-  const deleteRoomHandler = (roomID) => {
-    dispatch(adminDeleteRoom(roomID))
+  const deleteBookingHandler = (bookingID) => {
+    dispatch(adminDeleteBooking(bookingID))
   }
 
   return (
@@ -109,16 +109,11 @@ const AllRooms = () => {
       ) : (
         <>
           <h1 className="my-5">
-            {rooms && rooms.length} Rooms on List
-            <Link href="/admin/rooms/createNewRoom">
-              <a className="mt-0 btn text-white float-right new-room-btn">
-                Create Room
-              </a>
-            </Link>
+            {bookings && bookings.length} Bookings on List
           </h1>
 
           <MDBDataTable
-            data={setAllRooms()}
+            data={setAllBookings()}
             className="px-3"
             bordered
             striped
@@ -130,4 +125,4 @@ const AllRooms = () => {
   )
 }
 
-export default AllRooms
+export default AllBookings

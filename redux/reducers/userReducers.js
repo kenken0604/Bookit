@@ -15,6 +15,13 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
+  ADMIN_USERLIST_FAIL,
+  ADMIN_USERLIST_REQUEST,
+  ADMIN_USERLIST_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_RESET,
 } from '../constants/userConstants'
 
 //register an user
@@ -155,6 +162,66 @@ export const userPasswordResetReducer = (state = {}, action) => {
       return {
         loading: false,
         error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//admin get user list
+export const adminUserslistReducer = (state = { users: [] }, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ADMIN_USERLIST_REQUEST:
+      return {
+        loading: true,
+      }
+    case ADMIN_USERLIST_SUCCESS:
+      return {
+        loading: false,
+        users: payload,
+      }
+    case ADMIN_USERLIST_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//admin delete user
+export const userDeleteReducer = (state = {}, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case USER_DELETE_REQUEST:
+      return {
+        deleteLoading: true,
+      }
+    case USER_DELETE_SUCCESS:
+      return {
+        deleteLoading: false,
+        deleteSuccess: payload,
+      }
+    case USER_DELETE_RESET:
+      return {
+        deleteSuccess: false,
+      }
+    case USER_DELETE_FAIL:
+      return {
+        deleteLoading: false,
+        deleteError: payload,
       }
     case CLEAR_ERRORS:
       return {

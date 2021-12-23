@@ -3,10 +3,7 @@ import connectDB from '../../../config/db'
 
 import onError from '../../../middlewares/error'
 
-import {
-  getBookingDetail,
-  deleteBooking,
-} from '../../../controllers/bookingControllers'
+import { deleteUser } from '../../../controllers/userControllers'
 import { isAuthenticatedUser, authorizedRole } from '../../../middlewares/auth'
 
 const handler = nc({ onError }) //必須傳入物件
@@ -14,7 +11,6 @@ const handler = nc({ onError }) //必須傳入物件
 connectDB()
 
 //路由
-handler.use(isAuthenticatedUser).get(getBookingDetail)
-handler.use(isAuthenticatedUser, authorizedRole('admin')).delete(deleteBooking)
+handler.use(isAuthenticatedUser, authorizedRole('admin')).delete(deleteUser)
 
 export default handler

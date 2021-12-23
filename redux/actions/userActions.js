@@ -18,6 +18,12 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  ADMIN_USERLIST_FAIL,
+  ADMIN_USERLIST_REQUEST,
+  ADMIN_USERLIST_SUCCESS,
 } from '../constants/userConstants'
 
 //register an user
@@ -145,6 +151,48 @@ export const setNewPassword = (token, passwords) => {
       dispatch({
         type: RESET_PASSWORD_FAIL,
         payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//admin get user list
+export const getAdminUserlist = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ADMIN_USERLIST_REQUEST })
+
+      const { data } = await axios.get(`/api/admin/users`)
+
+      dispatch({
+        type: ADMIN_USERLIST_SUCCESS,
+        payload: data.users, //*
+      })
+    } catch (error) {
+      dispatch({
+        type: ADMIN_USERLIST_FAIL,
+        payload: error.response.data.message, //*
+      })
+    }
+  }
+}
+
+//delete user
+export const adminDeleteUser = (userID) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: USER_DELETE_REQUEST })
+
+      const { data } = await axios.delete(`/api/users/${userID}`)
+
+      dispatch({
+        type: USER_DELETE_SUCCESS,
+        payload: data.success, //*
+      })
+    } catch (error) {
+      dispatch({
+        type: USER_DELETE_FAIL,
+        payload: error.response.data.message, //*
       })
     }
   }

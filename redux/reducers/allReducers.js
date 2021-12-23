@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import {
+  adminBookinglistReducer,
   bookedDateReducer,
   bookingCheckReducer,
   bookingCreateReducer,
+  bookingDeleteReducer,
   bookingDetailsReducer,
   bookingsGetReducer,
 } from './bookingReducers'
@@ -17,6 +19,8 @@ import {
   roomUpdateReducer,
 } from './roomReducers'
 import {
+  adminUserslistReducer,
+  userDeleteReducer,
   userPasswordReducer,
   userPasswordResetReducer,
   userProfileReducer,
@@ -37,12 +41,16 @@ const allReducers = combineReducers({
   userUpdate: userUpdateReducer,
   userPassword: userPasswordReducer,
   userPasswordReset: userPasswordResetReducer,
+  userDelete: userDeleteReducer,
   bookingCreate: bookingCreateReducer,
   bookingCheck: bookingCheckReducer,
   bookedDate: bookedDateReducer,
   bookingsGet: bookingsGetReducer,
   bookingDetails: bookingDetailsReducer,
+  bookingDelete: bookingDeleteReducer,
   adminRoomlist: adminRoomlistReducer,
+  adminBookinglist: adminBookinglistReducer,
+  adminUserslist: adminUserslistReducer,
 })
 
 export default allReducers

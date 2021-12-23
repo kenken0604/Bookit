@@ -147,3 +147,39 @@ export const getBookingDetail = catchAsyncError(async (req, res) => {
     throw new Error('booking not found.')
   }
 })
+
+// @func    admin get all booking
+// @route   get /api/admin/bookings
+// @access  private
+export const bookingList = catchAsyncError(async (req, res) => {
+  const bookings = await Booking.find({})
+
+  if (bookings) {
+    res.status(200).json({
+      success: true,
+      bookings,
+    })
+  } else {
+    res.status(404)
+    throw new Error('No booking found.')
+  }
+})
+
+// @func    admin  delete booking
+// @route   delete /api/bookings
+// @access  private
+export const deleteBooking = catchAsyncError(async (req, res) => {
+  const booking = await Booking.findById(req.query.id)
+
+  if (booking) {
+    await booking.remove()
+
+    res.status(200).json({
+      success: true,
+      message: 'Booking deleted',
+    })
+  } else {
+    res.status(404)
+    throw new Error('No booking found.')
+  }
+})

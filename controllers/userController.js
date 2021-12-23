@@ -187,3 +187,37 @@ export const resetPassword = catchAsyncError(async (req, res) => {
     throw new Error('Password reset token is invalid or has been expired.')
   }
 })
+
+// @func    admin get all user
+// @route   get /api/admin/users
+// @access  private
+export const usersList = catchAsyncError(async (req, res) => {
+  const users = await User.find({})
+
+  res.status(200).json({
+    success: true,
+    users,
+  })
+})
+
+// @func    admin  delete user
+// @route   delete /api/users
+// @access  private
+export const deleteUser = catchAsyncError(async (req, res) => {
+  const user = await User.findById(req.query.id)
+
+  if (user) {
+    //刪除照片
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id)
+
+    await user.remove()
+
+    res.status(200).json({
+      success: true,
+      message: 'User deleted',
+    })
+  } else {
+    res.status(404)
+    throw new Error('No User found.')
+  }
+})

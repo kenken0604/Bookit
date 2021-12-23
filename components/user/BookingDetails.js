@@ -9,6 +9,7 @@ import { CLEAR_ERRORS } from '../../redux/constants/bookingConstants'
 const BookingDetails = () => {
   const dispatch = useDispatch()
   const { booking, error } = useSelector((state) => state.bookingDetails)
+  const { user } = useSelector((state) => state.userProfile)
 
   useEffect(() => {
     if (error) {
@@ -20,9 +21,15 @@ const BookingDetails = () => {
     <div className="container">
       <div className="row d-flex justify-content-between">
         <div className="col-12 col-lg-8 mt-5 booking-details">
-          <Link href="/bookings/me">
-            <button className="btn btn-danger">Go Back</button>
-          </Link>
+          {user && user.role === 'admin' ? (
+            <Link href="/admin/adminBookingList">
+              <button className="btn btn-danger">Go Back</button>
+            </Link>
+          ) : (
+            <Link href="/bookings/me">
+              <button className="btn btn-danger">Go Back</button>
+            </Link>
+          )}
           <h2 className="mt-0 my-4">Booking #{booking._id}</h2>
           <h4 className="mb-4">Client Info</h4>
           <p>

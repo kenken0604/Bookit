@@ -13,6 +13,14 @@ import {
   CLEAR_ERRORS,
   SHOW_MY_BOOKING_FAIL,
   SHOW_MY_BOOKING_SUCCESS,
+  ADMIN_BOOKINGLIST_REQUEST,
+  ADMIN_BOOKINGLIST_SUCCESS,
+  ADMIN_BOOKINGLIST_FAIL,
+  ADMIN_BOOKINGLIST_RESET,
+  BOOKING_DELETE_REQUEST,
+  BOOKING_DELETE_SUCCESS,
+  BOOKING_DELETE_FAIL,
+  BOOKING_DELETE_RESET,
 } from '../constants/bookingConstants'
 
 //create booking
@@ -126,6 +134,70 @@ export const bookingDetailsReducer = (state = { booking: null }, action) => {
       return {
         loading: false,
         error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//admin get booking list
+export const adminBookinglistReducer = (state = { bookings: [] }, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ADMIN_BOOKINGLIST_REQUEST:
+      return {
+        loading: true,
+      }
+    case ADMIN_BOOKINGLIST_SUCCESS:
+      return {
+        loading: false,
+        bookings: payload,
+      }
+    case ADMIN_BOOKINGLIST_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case ADMIN_BOOKINGLIST_RESET:
+      return {
+        bookings: [],
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//admin get booking list
+export const bookingDeleteReducer = (state = {}, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case BOOKING_DELETE_REQUEST:
+      return {
+        deleteLoading: true,
+      }
+    case BOOKING_DELETE_SUCCESS:
+      return {
+        deleteLoading: false,
+        deleteSuccess: payload,
+      }
+    case BOOKING_DELETE_FAIL:
+      return {
+        deleteLoading: false,
+        deleteError: payload,
+      }
+    case BOOKING_DELETE_RESET:
+      return {
+        deleteSuccess: false,
       }
     case CLEAR_ERRORS:
       return {
