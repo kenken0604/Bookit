@@ -17,7 +17,7 @@ connectDB()
 
 //路由
 handler.get(getRoomByID)
-handler.put(updateRoom)
+handler.use(isAuthenticatedUser, authorizedRole('admin')).put(updateRoom)
 handler.use(isAuthenticatedUser, authorizedRole('admin')).delete(deleteRoom)
 
 export default handler

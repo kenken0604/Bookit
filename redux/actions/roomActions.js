@@ -22,6 +22,10 @@ import {
   ROOM_DELETE_REQUEST,
   ROOM_DELETE_SUCCESS,
   ROOM_DELETE_FAIL,
+  ROOM_UPDATE_REQUEST,
+  ROOM_UPDATE_SUCCESS,
+  ROOM_UPDATE_FAIL,
+  ROOM_UPDATE_RESET,
 } from '../constants/roomConstants'
 
 //list all rooms
@@ -173,6 +177,33 @@ export const createNewRoom = (roomData) => {
     } catch (error) {
       dispatch({
         type: ROOM_CREATE_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//update room
+export const adminUpdateRoom = (roomID, roomData) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ROOM_UPDATE_REQUEST })
+
+      const config = {
+        header: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const { data } = await axios.put(`/api/rooms/${roomID}`, roomData, config)
+
+      dispatch({
+        type: ROOM_UPDATE_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ROOM_UPDATE_FAIL,
         payload: error.response.data.message,
       })
     }

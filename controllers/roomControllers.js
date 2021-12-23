@@ -93,6 +93,30 @@ export const updateRoom = catchAsyncError(async (req, res, next) => {
   const room = await Room.findById(req.query.id) //next沒有params
 
   if (room) {
+    if (req.body.images.length !== 0) {
+      //刪除原照片
+      for (let i = 0; room.images.length > i; i++) {
+        await cloudinary.v2.uploader.destroy(room.images[i].public_id)
+      }
+
+      //上傳新照片
+      const imageLinks = []
+      for (let i = 0; req.body.images.length > i; i++) {
+        const result = await cloudinary.v2.uploader.upload(req.body.images[i], {
+          folder: 'bookit/rooms',
+        })
+
+        imageLinks.push({
+          public_id: result.public_id,
+          url: result.secure_url,
+        })
+      }
+      //重新指派
+      req.body.images = imageLinks
+    } else {
+      req.body.images = room.images //* 沒收到照片就指定原照片
+    }
+
     const updatedRoom = await Room.findByIdAndUpdate(req.query.id, req.body, {
       new: true, //讓mongoose返回新物件
       runValidators: true,

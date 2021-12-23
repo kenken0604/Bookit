@@ -80,7 +80,7 @@ const AllRooms = () => {
           category: room.category,
           actions: (
             <>
-              <Link href={`/room/${room._id}`}>
+              <Link href={`/admin/rooms/${room._id}`}>
                 <a className="btn btn-sm btn-primary">
                   <i className="fas fa-edit"></i>
                 </a>
