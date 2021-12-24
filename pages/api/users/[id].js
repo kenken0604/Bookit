@@ -3,7 +3,11 @@ import connectDB from '../../../config/db'
 
 import onError from '../../../middlewares/error'
 
-import { deleteUser } from '../../../controllers/userController'
+import {
+  adminUpdateUser,
+  deleteUser,
+  getUserDetails,
+} from '../../../controllers/userController'
 
 import { authorizedRole, isAuthenticatedUser } from '../../../middlewares/auth'
 
@@ -13,5 +17,7 @@ connectDB()
 
 //路由
 handler.use(isAuthenticatedUser, authorizedRole('admin')).delete(deleteUser)
+handler.use(isAuthenticatedUser, authorizedRole('admin')).get(getUserDetails)
+handler.use(isAuthenticatedUser, authorizedRole('admin')).put(adminUpdateUser)
 
 export default handler

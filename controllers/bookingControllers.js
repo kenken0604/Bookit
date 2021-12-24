@@ -166,7 +166,7 @@ export const bookingList = catchAsyncError(async (req, res) => {
 })
 
 // @func    admin  delete booking
-// @route   delete /api/bookings
+// @route   delete /api/bookings/:id
 // @access  private
 export const deleteBooking = catchAsyncError(async (req, res) => {
   const booking = await Booking.findById(req.query.id)

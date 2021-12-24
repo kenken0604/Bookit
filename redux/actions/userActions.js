@@ -21,9 +21,15 @@ import {
   USER_DELETE_FAIL,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
   ADMIN_USERLIST_FAIL,
   ADMIN_USERLIST_REQUEST,
   ADMIN_USERLIST_SUCCESS,
+  ADMIN_UPDATE_USER_FAIL,
+  ADMIN_UPDATE_USER_REQUEST,
+  ADMIN_UPDATE_USER_SUCCESS,
 } from '../constants/userConstants'
 
 //register an user
@@ -192,6 +198,54 @@ export const adminDeleteUser = (userID) => {
     } catch (error) {
       dispatch({
         type: USER_DELETE_FAIL,
+        payload: error.response.data.message, //*
+      })
+    }
+  }
+}
+
+//get user details
+export const adminUserDetails = (userID) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: USER_DETAILS_REQUEST })
+
+      const { data } = await axios.get(`/api/users/${userID}`)
+
+      dispatch({
+        type: USER_DETAILS_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: USER_DETAILS_FAIL,
+        payload: error.response.data.message, //*
+      })
+    }
+  }
+}
+
+//admin update user status
+export const updateUserStatus = (userID, userData) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ADMIN_UPDATE_USER_REQUEST })
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+
+      const { data } = await axios.put(`/api/users/${userID}`, userData, config)
+
+      dispatch({
+        type: ADMIN_UPDATE_USER_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ADMIN_UPDATE_USER_FAIL,
         payload: error.response.data.message, //*
       })
     }

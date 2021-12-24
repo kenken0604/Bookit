@@ -21,10 +21,12 @@ import {
 import {
   adminUserslistReducer,
   userDeleteReducer,
+  userDetailsReducer,
   userPasswordReducer,
   userPasswordResetReducer,
   userProfileReducer,
   userRegisterReducer,
+  userStatusUpdateReducer,
   userUpdateReducer,
 } from './userReducers'
 
@@ -42,6 +44,8 @@ const allReducers = combineReducers({
   userPassword: userPasswordReducer,
   userPasswordReset: userPasswordResetReducer,
   userDelete: userDeleteReducer,
+  userDetails: userDetailsReducer,
+  userStatusUpdate: userStatusUpdateReducer,
   bookingCreate: bookingCreateReducer,
   bookingCheck: bookingCheckReducer,
   bookedDate: bookedDateReducer,

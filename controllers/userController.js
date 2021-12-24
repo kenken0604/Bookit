@@ -201,7 +201,7 @@ export const usersList = catchAsyncError(async (req, res) => {
 })
 
 // @func    admin  delete user
-// @route   delete /api/users
+// @route   delete /api/users/:id
 // @access  private
 export const deleteUser = catchAsyncError(async (req, res) => {
   const user = await User.findById(req.query.id)
@@ -215,6 +215,50 @@ export const deleteUser = catchAsyncError(async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'User deleted',
+    })
+  } else {
+    res.status(404)
+    throw new Error('No User found.')
+  }
+})
+
+// @func    get user details
+// @route   get /api/users/:id
+// @access  private
+export const getUserDetails = catchAsyncError(async (req, res) => {
+  const user = await User.findById(req.query.id)
+
+  if (user) {
+    res.status(200).json({
+      success: true,
+      user,
+    })
+  } else {
+    res.status(404)
+    throw new Error('No User found.')
+  }
+})
+
+// @func    update user status
+// @route   put /api/users/:id
+// @access  private
+export const adminUpdateUser = catchAsyncError(async (req, res) => {
+  const user = await User.findById(req.query.id)
+
+  if (user) {
+    const userData = {
+      role: req.body.role,
+    }
+
+    const user = await User.findByIdAndUpdate(req.query.id, userData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    })
+
+    res.status(200).json({
+      success: true,
+      user,
     })
   } else {
     res.status(404)

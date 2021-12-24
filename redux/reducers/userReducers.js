@@ -22,6 +22,14 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_RESET,
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_RESET,
+  ADMIN_UPDATE_USER_FAIL,
+  ADMIN_UPDATE_USER_REQUEST,
+  ADMIN_UPDATE_USER_SUCCESS,
+  ADMIN_UPDATE_USER_RESET,
 } from '../constants/userConstants'
 
 //register an user
@@ -222,6 +230,70 @@ export const userDeleteReducer = (state = {}, action) => {
       return {
         deleteLoading: false,
         deleteError: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//get user details
+export const userDetailsReducer = (state = { user: {} }, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case USER_DETAILS_REQUEST:
+      return {
+        loading: true,
+      }
+    case USER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        user: payload.user,
+      }
+    case USER_DETAILS_RESET:
+      return {
+        user: {},
+      }
+    case USER_DETAILS_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//update user status
+export const userStatusUpdateReducer = (state = {}, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ADMIN_UPDATE_USER_REQUEST:
+      return {
+        updateLoading: true,
+      }
+    case ADMIN_UPDATE_USER_SUCCESS:
+      return {
+        updateLoading: false,
+        updateSuccess: payload,
+      }
+    case ADMIN_UPDATE_USER_RESET:
+      return {
+        updateSuccess: false,
+      }
+    case ADMIN_UPDATE_USER_FAIL:
+      return {
+        updateLoading: false,
+        updateError: payload,
       }
     case CLEAR_ERRORS:
       return {
