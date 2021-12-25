@@ -3,14 +3,22 @@ import connectDB from '../../../config/db'
 
 import onError from '../../../middlewares/error'
 
-import { createRoomReview } from '../../../controllers/roomControllers'
+import {
+  createRoomReview,
+  deleteRoomReviews,
+  getRoomReviews,
+} from '../../../controllers/roomControllers'
 
-import { isAuthenticatedUser } from '../../../middlewares/auth'
+import { authorizedRole, isAuthenticatedUser } from '../../../middlewares/auth'
 
 const handler = nc({ onError })
 
 connectDB()
 
 handler.use(isAuthenticatedUser).put(createRoomReview)
+handler.use(isAuthenticatedUser, authorizedRole('admin')).get(getRoomReviews)
+handler
+  .use(isAuthenticatedUser, authorizedRole('admin'))
+  .delete(deleteRoomReviews)
 
 export default handler

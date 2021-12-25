@@ -25,7 +25,12 @@ import {
   ROOM_UPDATE_REQUEST,
   ROOM_UPDATE_SUCCESS,
   ROOM_UPDATE_FAIL,
-  ROOM_UPDATE_RESET,
+  ROOM_REVIEWS_REQUEST,
+  ROOM_REVIEWS_SUCCESS,
+  ROOM_REVIEWS_FAIL,
+  ROOM_REVIEW_DELETE_REQUEST,
+  ROOM_REVIEW_DELETE_SUCCESS,
+  ROOM_REVIEW_DELETE_FAIL,
 } from '../constants/roomConstants'
 
 //list all rooms
@@ -225,6 +230,50 @@ export const adminDeleteRoom = (roomID) => {
     } catch (error) {
       dispatch({
         type: ROOM_DELETE_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//get room reviews
+export const roomReviews = (roomID) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ROOM_REVIEWS_REQUEST })
+
+      const { data } = await axios.get(`/api/reviews/?id=${roomID}`)
+
+      dispatch({
+        type: ROOM_REVIEWS_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ROOM_REVIEWS_FAIL,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
+
+//get room reviews
+export const deleteReviews = (roomID, reviewID) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: ROOM_REVIEW_DELETE_REQUEST })
+
+      const { data } = await axios.delete(
+        `/api/reviews/?roomID=${roomID}&reviewID=${reviewID}`,
+      )
+
+      dispatch({
+        type: ROOM_REVIEW_DELETE_SUCCESS,
+        payload: data.success,
+      })
+    } catch (error) {
+      dispatch({
+        type: ROOM_REVIEW_DELETE_FAIL,
         payload: error.response.data.message,
       })
     }

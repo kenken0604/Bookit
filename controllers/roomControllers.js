@@ -230,3 +230,44 @@ export const roomList = catchAsyncError(async (req, res) => {
     rooms,
   })
 })
+
+// @func    admin get room reviews
+// @route   get /api/reviews
+// @access  private
+export const getRoomReviews = catchAsyncError(async (req, res) => {
+  const room = await Room.findById(req.query.id)
+
+  res.status(200).json({
+    success: true,
+    reviews: room.reviews,
+  })
+})
+
+// @func    delete room reviews
+// @route   delete /api/reviews/:id
+// @access  private
+export const deleteRoomReviews = catchAsyncError(async (req, res) => {
+  const room = await Room.findById(req.query.roomID)
+
+  if (room) {
+    const newReviews = room.reviews.filter(
+      (review) => review._id.toString() !== req.query.reviewID.toString(),
+    )
+
+    room.reviews = newReviews
+
+    room.numOfReviews = newReviews.length
+
+    room.ratings =
+      newReviews.reduce((acc, item) => (acc += item.rating), 0) /
+      (newReviews.length > 0 ? newReviews.length : 1)
+
+    await room.save({ validateBeforeSave: false })
+
+    res.status(200).json({
+      success: true,
+    })
+  } else {
+    throw next(new ErrorHandler('Room not found', 404))
+  }
+})

@@ -50,14 +50,20 @@ const Header = () => {
 
               {user && user.role === 'admin' && (
                 <>
+                  <NavDropdown.Item href="/admin/adminBookingList">
+                    Booking List
+                  </NavDropdown.Item>
+
                   <NavDropdown.Item href="/admin/adminRoomList">
                     Room List
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin/adminUserList">
-                    User List
+
+                  <NavDropdown.Item href="/admin/adminReviewList">
+                    Review Search
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin/adminBookingList">
-                    Booking List
+
+                  <NavDropdown.Item href="/admin/adminUserList">
+                    User Control
                   </NavDropdown.Item>
                   <NavDropdown.Divider></NavDropdown.Divider>
                 </>

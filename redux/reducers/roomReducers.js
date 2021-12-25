@@ -4,6 +4,7 @@ import {
   CLEAR_ERRORS,
   ROOM_DETAILS_SUCCESS,
   ROOM_DETAILS_FAIL,
+  ROOM_DETAILS_RESET,
   REVIEW_CREATE_REQUEST,
   REVIEW_CREATE_SUCCESS,
   REVIEW_CREATE_FAIL,
@@ -26,7 +27,14 @@ import {
   ROOM_UPDATE_SUCCESS,
   ROOM_UPDATE_FAIL,
   ROOM_UPDATE_RESET,
-  ROOM_DETAILS_RESET,
+  ROOM_REVIEWS_REQUEST,
+  ROOM_REVIEWS_SUCCESS,
+  ROOM_REVIEWS_FAIL,
+  ROOM_REVIEWS_RESET,
+  ROOM_REVIEW_DELETE_REQUEST,
+  ROOM_REVIEW_DELETE_SUCCESS,
+  ROOM_REVIEW_DELETE_FAIL,
+  ROOM_REVIEW_DELETE_RESET,
 } from '../constants/roomConstants'
 
 //get all rooms
@@ -259,6 +267,70 @@ export const roomDeleteReducer = (state = {}, action) => {
     case ROOM_DELETE_RESET:
       return {
         isDeleted: false,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//get room reviews
+export const roomReviewsReducer = (state = { reviews: [] }, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ROOM_REVIEWS_REQUEST:
+      return {
+        loading: true,
+      }
+    case ROOM_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        reviews: payload.reviews,
+      }
+    case ROOM_REVIEWS_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case ROOM_REVIEWS_RESET:
+      return {
+        reviews: [],
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+//delete room review
+export const roomReviewDeleteReducer = (state = {}, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case ROOM_REVIEW_DELETE_REQUEST:
+      return {
+        deleteLoading: true,
+      }
+    case ROOM_REVIEW_DELETE_SUCCESS:
+      return {
+        deleteLoading: false,
+        deleteSuccess: payload,
+      }
+    case ROOM_REVIEW_DELETE_FAIL:
+      return {
+        deleteLoading: false,
+        deleteError: payload,
+      }
+    case ROOM_REVIEW_DELETE_RESET:
+      return {
+        deleteSuccess: false,
       }
     case CLEAR_ERRORS:
       return {

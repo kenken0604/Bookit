@@ -15,6 +15,8 @@ import {
   roomCreateReducer,
   roomDeleteReducer,
   roomDetailsReducer,
+  roomReviewDeleteReducer,
+  roomReviewsReducer,
   roomsListReducer,
   roomUpdateReducer,
 } from './roomReducers'
@@ -36,6 +38,8 @@ const allReducers = combineReducers({
   roomCreate: roomCreateReducer,
   roomUpdate: roomUpdateReducer,
   roomDelete: roomDeleteReducer,
+  roomReviews: roomReviewsReducer,
+  roomReviewDelete: roomReviewDeleteReducer,
   reviewCreate: reviewCreateReducer,
   reviewAvailable: checkReviewAvailableReducer,
   userRegister: userRegisterReducer,
