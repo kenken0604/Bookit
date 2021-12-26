@@ -3,7 +3,7 @@ import React from 'react'
 
 const Rating = ({ value }) => {
   return (
-    <span className="rating" style={{ color: 'orange' }}>
+    <span className="rating mr-2" style={{ color: 'orange' }}>
       <i
         style={{ marginRight: '3px' }}
         className={

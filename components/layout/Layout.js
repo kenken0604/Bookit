@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import Header from './Header'
 import Footer from './Footer'
@@ -8,6 +9,17 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Layout = ({ children, title = 'Always Book the Best' }) => {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', () => {
+      window.scroll({
+        top: 0,
+        left: 0,
+      })
+    })
+  }, [])
+
   return (
     <div>
       <Head>

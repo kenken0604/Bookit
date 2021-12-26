@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+
 import Image from 'next/image'
 
 import { Carousel } from 'react-bootstrap'
@@ -96,12 +97,15 @@ const RoomDetails = () => {
 
   return (
     <div>
-      <div className="container container-fluid">
+      <div className="container">
+        <button className="btn btn-danger mt-5" onClick={() => router.back()}>
+          Go Back
+        </button>
         <h2 className="mt-5">{room.name}</h2>
         <p>{room.address}</p>
         <p className="text-right">
           <Rating value={room.ratings} />
-          {room.numOfReviews} Reviews
+          {room.numOfReviews} {room.numOfReviews > 1 ? 'Reviews' : 'Review'}
         </p>
         <Carousel hover="pause">
           {room &&
@@ -125,7 +129,7 @@ const RoomDetails = () => {
             <p>{room.description}</p>
             <RoomFeatures room={room} />
           </div>
-          <div className="col-12 col-md-6 col-lg-4">
+          <div className="col-12 col-md-6 col-lg-4 mt-5">
             <div className="booking-card shadow p-4">
               <p className="price-per-night">
                 <b>${room.pricePerNight}</b>
@@ -156,7 +160,7 @@ const RoomDetails = () => {
               {isAvailable === false && (
                 <div className="alert alert-danger my-3 font-weight-bold text-center">
                   Room is not available.{' '}
-                  <p className="my-0">Please try different Dates.</p>
+                  <p className="my-0">Please try different dates.</p>
                 </div>
               )}
 

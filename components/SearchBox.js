@@ -22,7 +22,10 @@ const SearchBox = () => {
     <div className="container container-fluid">
       <div className="row wrapper">
         <div className="col-11 col-sm-10 col-md-6 col-xl-5">
-          <form className="shadow" onSubmit={submitHandler}>
+          <button className="btn btn-danger" onClick={() => router.back()}>
+            Go Back
+          </button>
+          <form className="shadow mt-5" onSubmit={submitHandler}>
             <h2 className="mb-3">Search Rooms</h2>
             <div className="form-group">
               <label htmlFor="location">Location</label>

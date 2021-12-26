@@ -67,10 +67,10 @@ const UpdateUser = () => {
         <div className="container container-fluid">
           <div className="row wrapper">
             <div className="col-11 col-sm-10 col-md-6 col-xl-5">
-              <Link href="/admin/adminUserList">
-                <button className="btn btn-danger mb-5">Go Back</button>
-              </Link>
-              <form className="shadow" onSubmit={submitHandler}>
+              <button className="btn btn-danger" onClick={() => router.back()}>
+                Go Back
+              </button>
+              <form className="shadow mt-5" onSubmit={submitHandler}>
                 <h1 className="mb-3">Update Status</h1>
 
                 <div className="form-group">

@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 import { clearErrors } from '../redux/actions/roomActions'
 import { toast } from 'react-toastify'
-import Pagination from 'react-js-pagination'
 import Paginate from './Paginate'
 
 import RoomItem from './room/RoomItem'
@@ -18,20 +17,12 @@ const Home = () => {
   )
   const { location } = router.query
 
-  console.log(pageNumber)
-
   useEffect(() => {
-    window.scrollTo(0, 0)
-
     if (error) {
       toast.error('We have problem here...')
       dispatch(clearErrors())
     }
-  }, [error, pageNumber])
-
-  const pageHandler = (pageNumber) => {
-    router.push(`/?pageNumber=${pageNumber}`)
-  }
+  }, [error])
 
   return (
     <section className="container mt-5 min-height-80">

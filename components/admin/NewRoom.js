@@ -92,8 +92,11 @@ const NewRoom = () => {
     <div className="container container-fluid">
       <div className="row wrapper">
         <div className="col-11 col-sm-10 col-md-8 col-xl-6">
+          <button className="btn btn-danger" onClick={() => router.back()}>
+            Go Back
+          </button>
           <form
-            className="shadow"
+            className="shadow mt-5"
             onSubmit={submitHandler}
             encType="multipart/form-data"
           >

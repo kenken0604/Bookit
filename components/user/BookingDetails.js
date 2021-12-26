@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -7,6 +8,7 @@ import { toast } from 'react-toastify'
 import { CLEAR_ERRORS } from '../../redux/constants/bookingConstants'
 
 const BookingDetails = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
   const { booking, error } = useSelector((state) => state.bookingDetails)
   const { user } = useSelector((state) => state.userProfile)
@@ -20,17 +22,11 @@ const BookingDetails = () => {
   return (
     <div className="container">
       <div className="row wrapper">
-        <div className="col-12 mt-5 booking-details">
-          {user && user.role === 'admin' ? (
-            <Link href="/admin/adminBookingList">
-              <button className="btn btn-danger">Go Back</button>
-            </Link>
-          ) : (
-            <Link href="/bookings/me">
-              <button className="btn btn-danger">Go Back</button>
-            </Link>
-          )}
-          <h2 className="mt-0 my-4 text-truncate">Booking #{booking._id}</h2>
+        <div className="col-12 booking-details">
+          <button className="btn btn-danger" onClick={() => router.back()}>
+            Go Back
+          </button>
+          <h2 className="mt-5 my-4 text-truncate">Booking #{booking._id}</h2>
           <h4 className="mb-4">Client Info</h4>
           <p>
             <b>Name: </b>

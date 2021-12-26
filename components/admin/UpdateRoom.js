@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 
 import ButtonLoader from '../ButtonLoader'
 import Loader from '../layout/Loader'
@@ -130,11 +129,11 @@ const UpdateRoom = () => {
     <div className="container container-fluid">
       <div className="row wrapper">
         <div className="col-11 col-sm-11 col-md-9 col-xl-7">
-          <Link href="/admin/adminRoomList">
-            <button className="btn btn-danger mb-5">Go Back</button>
-          </Link>
+          <button className="btn btn-danger" onClick={() => router.back()}>
+            Go Back
+          </button>
           <form
-            className="shadow"
+            className="shadow mt-5"
             onSubmit={submitHandler}
             encType="multipart/form-data"
           >
