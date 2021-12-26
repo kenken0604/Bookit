@@ -129,7 +129,7 @@ const UpdateRoom = () => {
   return (
     <div className="container container-fluid">
       <div className="row wrapper">
-        <div className="col-10 col-lg-8">
+        <div className="col-11 col-sm-11 col-md-9 col-xl-7">
           <Link href="/admin/adminRoomList">
             <button className="btn btn-danger mb-5">Go Back</button>
           </Link>

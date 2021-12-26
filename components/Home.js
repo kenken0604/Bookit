@@ -18,12 +18,16 @@ const Home = () => {
   )
   const { location } = router.query
 
+  console.log(pageNumber)
+
   useEffect(() => {
+    window.scrollTo(0, 0)
+
     if (error) {
       toast.error('We have problem here...')
       dispatch(clearErrors())
     }
-  }, [error])
+  }, [error, pageNumber])
 
   const pageHandler = (pageNumber) => {
     router.push(`/?pageNumber=${pageNumber}`)

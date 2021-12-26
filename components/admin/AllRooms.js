@@ -79,19 +79,19 @@ const AllRooms = () => {
           price: '$' + room.pricePerNight,
           category: room.category,
           actions: (
-            <>
+            <div className="text-center">
               <Link href={`/admin/rooms/${room._id}`}>
-                <a className="btn btn-sm btn-primary">
+                <a className="btn btn-sm btn-primary mr-2 mb-sm-2 mb-xl-0">
                   <i className="fas fa-edit"></i>
                 </a>
               </Link>
               <button
-                className="btn btn-sm btn-danger mx-2"
+                className="btn btn-sm btn-danger mr-2"
                 onClick={() => deleteRoomHandler(room._id)}
               >
                 <i className="fas fa-trash w-15"></i>
               </button>
-            </>
+            </div>
           ),
         }),
       )

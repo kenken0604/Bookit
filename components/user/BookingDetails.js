@@ -19,8 +19,8 @@ const BookingDetails = () => {
   }, [dispatch, error])
   return (
     <div className="container">
-      <div className="row d-flex justify-content-between">
-        <div className="col-12 col-lg-8 mt-5 booking-details">
+      <div className="row wrapper">
+        <div className="col-12 mt-5 booking-details">
           {user && user.role === 'admin' ? (
             <Link href="/admin/adminBookingList">
               <button className="btn btn-danger">Go Back</button>
@@ -30,7 +30,7 @@ const BookingDetails = () => {
               <button className="btn btn-danger">Go Back</button>
             </Link>
           )}
-          <h2 className="mt-0 my-4">Booking #{booking._id}</h2>
+          <h2 className="mt-0 my-4 text-truncate">Booking #{booking._id}</h2>
           <h4 className="mb-4">Client Info</h4>
           <p>
             <b>Name: </b>
@@ -70,25 +70,26 @@ const BookingDetails = () => {
           <hr />
           <div className="cart-item my-1">
             <div className="row my-5 px-3">
-              <div className="col-4 col-lg-3">
+              <div className="col-12 col-sm-12 col-lg-4 my-3 my-lg-0 text-center">
                 <Image
                   src={booking.room.images[0].url}
                   alt={booking.room.name}
-                  layout="fill"
+                  height={100}
+                  width={250}
                   className="object-fit"
                 />
               </div>
-              <div className="col-5 col-lg-4">
+              <div className="col-12 col-sm-12 col-lg-4 my-3 my-lg-0 text-center">
                 <Link href={`/room/${booking.room._id}`}>
                   {booking.room.name}
                 </Link>
               </div>
 
-              <div className="col-4 col-lg-2 mt-4 mt-lg-0 text-center font-weight-bold">
-                <p>${booking.room.pricePerNight}</p>
+              <div className="col-12 col-sm-12 col-lg-2 my-3 my-lg-0 text-center">
+                <p>${booking.room.pricePerNight * booking.daysOfStay}</p>
               </div>
 
-              <div className="col-4 col-lg-3 mt-4 mt-lg-0 text-center font-weight-bold">
+              <div className="col-12 col-sm-12 col-lg-2 my-3 my-lg-0 text-center">
                 <p>{booking.daysOfStay} Days</p>
               </div>
             </div>

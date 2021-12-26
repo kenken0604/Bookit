@@ -91,7 +91,7 @@ const NewRoom = () => {
   return (
     <div className="container container-fluid">
       <div className="row wrapper">
-        <div className="col-10 col-lg-8">
+        <div className="col-11 col-sm-10 col-md-8 col-xl-6">
           <form
             className="shadow"
             onSubmit={submitHandler}

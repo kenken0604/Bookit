@@ -4,7 +4,7 @@ import RoomReviews from '../../components/admin/RoomReviews'
 
 const adminReviewList = () => {
   return (
-    <Layout title="Reviews List">
+    <Layout title="Review List">
       <RoomReviews />
     </Layout>
   )

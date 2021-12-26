@@ -128,7 +128,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 4rem;
 
   font-weight: 700;
 }
@@ -202,7 +202,6 @@ body {
 /* Header User Profile */
 
 .avatar-nav {
-  margin-right: 0.6rem;
   height: 2.2rem;
   width: 2.2rem;
 }

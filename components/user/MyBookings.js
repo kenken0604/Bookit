@@ -61,19 +61,19 @@ const MyBookings = () => {
           checkOut: new Date(booking.checkOutDate).toString().slice(0, 15),
           amount: '$' + booking.amountPaid,
           actions: (
-            <>
+            <div>
               <Link href={`/bookings/${booking._id}`}>
-                <a className="btn btn-sm btn-primary">
+                <a className="btn btn-sm btn-primary mb-2 mr-2 mb-lg-0">
                   <i className="fas fa-eye"></i>
                 </a>
               </Link>
               <button
-                className="btn btn-sm btn-success mx-2"
+                className="btn btn-sm btn-success mr-2"
                 onClick={() => downloadInvoice(booking)}
               >
                 <i className="fas fa-file-download w-15"></i>
               </button>
-            </>
+            </div>
           ),
         }),
       )

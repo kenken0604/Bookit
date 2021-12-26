@@ -84,7 +84,7 @@ const RoomReviews = () => {
           actions: (
             <>
               <button
-                className="btn btn-sm btn-danger mx-2"
+                className="btn btn-sm btn-danger mr-2"
                 onClick={() => deleteReviewHandler(roomID, review._id)}
                 disabled={deleteLoading ? true : false}
               >
@@ -104,7 +104,7 @@ const RoomReviews = () => {
   return (
     <div className="container container-fluid">
       <div className="row justify-content-center mt-5">
-        <div className="col-5">
+        <div className="col-8 col-md-5">
           <form>
             <div className="form-group">
               <label htmlFor="roomId_field">Enter Room ID</label>
@@ -127,7 +127,7 @@ const RoomReviews = () => {
         </div>
       ) : reviews && reviews.length > 0 ? (
         <>
-          <h3 className="my-2">
+          <h3 className="my-2 text-center">
             {reviews && reviews.length} Reviews about the room
           </h3>
 
@@ -141,7 +141,7 @@ const RoomReviews = () => {
         </>
       ) : (
         <>
-          <h3 className="my-2">0 Reviews about the room</h3>
+          <h3 className="my-2 text-center">0 Reviews about the room</h3>
           <div className="alert alert-warning my-5">
             No Review about the room yet
           </div>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from '../../redux/actions/userActions'
@@ -7,7 +8,10 @@ import { signOut } from 'next-auth/client'
 
 const Header = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { loading, user } = useSelector((state) => state.userProfile)
+
+  const { pathname } = router
 
   useEffect(() => {
     if (!user) {
@@ -16,9 +20,15 @@ const Header = () => {
   }, [dispatch, user])
 
   return (
-    <nav className="navbar row justify-content-center sticky-top">
-      <div className="container">
-        <div className="col-3 p-0">
+    <nav className="navbar sticky-top">
+      <div
+        className={`container ${
+          pathname !== '/login'
+            ? 'justify-content-between'
+            : 'justify-content-center'
+        }`}
+      >
+        <div>
           <Link href="/">
             <div className="navbar-brand">
               <img
@@ -78,7 +88,8 @@ const Header = () => {
             </NavDropdown>
           </div>
         ) : (
-          !loading && (
+          !loading &&
+          pathname !== '/login' && (
             <Link href="/login">
               <a className="btn btn-danger px-4 text-white login-header-btn float-right">
                 Login

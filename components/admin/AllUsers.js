@@ -81,20 +81,20 @@ const AllUsers = () => {
           email: user.email,
           role: user.role,
           actions: (
-            <>
+            <div>
               <Link href={`/admin/users/${user._id}`}>
-                <a className="btn btn-sm btn-primary">
+                <a className="btn btn-sm btn-primary mr-2 mb-sm-2 mb-lg-0">
                   <i className="fas fa-edit"></i>
                 </a>
               </Link>
               <button
-                className="btn btn-sm btn-danger mx-2"
+                className="btn btn-sm btn-danger mr-2"
                 onClick={() => deleteUserHandler(user._id)}
                 disabled={deleteLoading ? true : false}
               >
                 <i className="fas fa-trash w-15"></i>
               </button>
-            </>
+            </div>
           ),
         }),
       )

@@ -42,7 +42,7 @@ const ResetPassword = () => {
   return (
     <div className="container container-fluid">
       <div className="row wrapper">
-        <div className="col-10 col-lg-5">
+        <div className="col-11 col-sm-10 col-md-6 col-xl-5">
           <form className="shadow" onSubmit={submitHandler}>
             <h1 className="mb-3">Reset Password</h1>
 

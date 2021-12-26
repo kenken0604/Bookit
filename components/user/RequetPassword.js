@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
-import { toast } from 'react-toastify'
 import ButtonLoader from '../ButtonLoader'
+import { toast } from 'react-toastify'
 import { requestPassword } from '../../redux/actions/userActions'
 import { CLEAR_ERRORS } from '../../redux/constants/userConstants'
 
@@ -32,7 +32,7 @@ const RequestPassword = () => {
   return (
     <div className="container container-fluid">
       <div className="row wrapper">
-        <div className="col-10 col-lg-5">
+        <div className="col-11 col-sm-10 col-md-6 col-xl-5">
           <form className="shadow" onSubmit={submitHandler}>
             <h1 className="mb-3">Request Password</h1>
 
@@ -47,7 +47,10 @@ const RequestPassword = () => {
               />
             </div>
 
-            <button className="btn btn-block py-2">
+            <button
+              className="btn btn-block py-2"
+              disabled={loading ? true : false}
+            >
               {loading ? <ButtonLoader /> : 'SEND EMAIL'}
             </button>
           </form>

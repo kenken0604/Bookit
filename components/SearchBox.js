@@ -21,7 +21,7 @@ const SearchBox = () => {
   return (
     <div className="container container-fluid">
       <div className="row wrapper">
-        <div className="col-6 co1-lg-5">
+        <div className="col-11 col-sm-10 col-md-6 col-xl-5">
           <form className="shadow" onSubmit={submitHandler}>
             <h2 className="mb-3">Search Rooms</h2>
             <div className="form-group">
@@ -68,7 +68,7 @@ const SearchBox = () => {
               </select>
             </div>
             <div className="d-flex justify-content-center">
-              <button type="submit" className="btn px-4 py-2">
+              <button type="submit" className="btn btn-block px-4 py-2">
                 Search
               </button>
             </div>

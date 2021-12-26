@@ -78,20 +78,20 @@ const AllBookings = () => {
           checkOut: new Date(booking.checkOutDate).toLocaleDateString(),
           amount: '$' + booking.amountPaid,
           actions: (
-            <>
+            <div>
               <Link href={`/admin/bookings/${booking._id}`}>
-                <a className="btn btn-sm btn-primary">
+                <a className="btn btn-sm btn-primary mr-2 mb-sm-2 mb-lg-0">
                   <i className="fas fa-edit"></i>
                 </a>
               </Link>
               <button
-                className="btn btn-sm btn-danger mx-2"
+                className="btn btn-sm btn-danger mr-2"
                 onClick={() => deleteBookingHandler(booking._id)}
                 disabled={deleteLoading ? true : false}
               >
                 <i className="fas fa-trash w-15"></i>
               </button>
-            </>
+            </div>
           ),
         }),
       )
