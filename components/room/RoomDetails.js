@@ -165,7 +165,7 @@ const RoomDetails = () => {
               )}
 
               {isAvailable && !user && (
-                <div className="alert alert-danger my-3 font-weight-bold">
+                <div className="alert alert-danger my-3 font-weight-bold text-center">
                   Login to book room.
                 </div>
               )}
