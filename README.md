@@ -4,6 +4,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 https://bookit-a3vpo69ow-kenken0604.vercel.app/
 
+You could login as admin with data below
+account: bob@bob.com
+password: 111111
+
 ## Getting Started
 
 First, run the development server:
