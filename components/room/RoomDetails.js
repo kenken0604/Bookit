@@ -40,7 +40,7 @@ const RoomDetails = () => {
 
   let excludedDates = []
   dates.forEach((date) => {
-    excludedDates.push(new Date(date)) //換成新日期格式
+    excludedDates.push(new Date(date)) //換成新日期格式***
   })
 
   // console.log(dates)
