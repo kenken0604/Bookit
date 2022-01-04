@@ -1,5 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+
 ## 專案呈現
 
 https://bookit-a3vpo69ow-kenken0604.vercel.app/
@@ -10,26 +11,47 @@ Email: bob@bob.com
 Password: 111111
 ```
 
+
 ## 專案功能
 
 - 一般使用者
 1. 註冊頁  
-   可以上傳照片做為個人化圖像，並在成功登入後顯示在上方navbar  
+   可以上傳照片做為個人化圖像，並在成功登入後顯示在上方Navbar  
 2. 搜尋頁  
    輸入地址搜尋飯店，或是增加篩選條件搜尋  
 3. 飯店介紹頁  
    - 動態顯示儲存在資料庫的飯店資料  
-   - 選擇日期區間預訂房間  
-6. 預訂房間後，會跳轉到個人頁讓使用者確認細節或下載客製化的發票
-7. 預訂房間後，會出現評論區讓使用者輸入意見回饋
-8. 到個人頁會顯示使用者資料，可以提交表單以更新使用者資料
-9. 忘記密碼的話，能夠輸入信箱來獲得重新設定密碼的token，並跳轉到指定畫面設定新密碼
+   - 在日曆選擇日期區間預訂房間，已被預定的日期會反灰，如果選中反灰的日期則會顯示無法預定
+   - 預訂按鈕上會根據選中的天數計算總額，沒有串接金流因此可以直接測試
+   - 預定完房間，會顯示評論表單，讓已預定飯店的使用者留下評分及回饋
+   - 評論會儲存到資料庫，並重新計算評分再顯示到畫面
+4. 個人訂單頁  
+   - 顯示使用者所有訂單
+   - 可進入到每一筆訂單查看內容
+   - 提供下載客製化的發票
+5. 個人資料頁  
+   - 顯示使用者的名稱、信箱及個人圖像
+   - 如需修改資料，可以輸入表單或是重新上傳照片，提交表單修改
+6. 重設密碼頁  
+   以輸入使用者信箱來請求重設密碼的token，並跳轉到設定頁來設定新密碼
 
-- As an admin
-1. Check out all the booking results and details, delete if in need
-2. Check out all the room information, update or delete if in need
-3. Check out all the user account and change users status or delete if in need
-4. Search room reviews by room ID, delete if in need
+- 網站管理員
+1. 訂單頁  
+   - 顯示所有訂單
+   - 可以查看訂單細節
+   - 刪除訂單
+2. 飯店清單頁  
+   - 顯示所有飯店
+   - 進入修改表單頁，更新飯店基本資料或上傳更多圖片
+   - 刪除飯店
+3. 搜尋評論頁
+   - 以輸入飯店ID的方式搜尋該飯店的評論
+   - 刪除評論
+4. 使用者管理頁
+   - 顯示所有使用者
+   - 可以進入修改頁，更改使用者的身分
+   - 刪除使用者
+
 
 ## Production Deployment
 
@@ -42,6 +64,7 @@ or create your own one as a normal user.
 Email: bob@bob.com  
 Password: 111111
 ```
+
 
 ## Main Features
 
@@ -59,6 +82,7 @@ Password: 111111
 2. Check out all the room information, update or delete if in need
 3. Check out all the user account and change users status or delete if in need
 4. Search room reviews by room ID, delete if in need
+
 
 ## Getting Started
 
