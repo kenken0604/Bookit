@@ -1,9 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Production Deployment
+## 專案呈現 Production Deployment
 
 https://bookit-a3vpo69ow-kenken0604.vercel.app/
 
+能以下方帳號以管理者的方式登入，或是自行建立一般使用者的帳號
 You may login as an admin with account below,
 or create your own one as a normal user.
 
@@ -12,11 +13,11 @@ email: bob@bob.com
 password: 111111
 ```
 
-## Main Features
+## 專案特色 Main Features
 
-- As a normal user
-1. Register and login
-2. Search rooms by the address of the hotel, with condition filter function
+- 一般使用者 As a normal user
+1. 註冊及登入 Register and login
+2. 以輸入地址搜尋飯店，或是增加篩選條件搜尋 Search rooms by the address of the hotel, with condition filter function
 3. Pick random range of dates in calendar to book the room
 4. Could see the booking result and then download invoice on private page
 5. After booking a room, could leave rating and comment
