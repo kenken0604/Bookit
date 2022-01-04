@@ -4,25 +4,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 https://bookit-a3vpo69ow-kenken0604.vercel.app/
 
-能以下方帳號以管理者的方式登入，或是自行建立一般使用者的帳號
+能以下方帳號以管理者的方式登入，或是自行建立一般使用者的帳號  
 You may login as an admin with account below,
 or create your own one as a normal user.
 
 ```bash
-email: bob@bob.com  
-password: 111111
+Email: bob@bob.com  
+Password: 111111
 ```
 
-## 專案特色 Main Features
+## 專案功能 Main Features
 
 - 一般使用者 As a normal user
-1. 註冊及登入 Register and login
+1. 註冊及登入網站 Register and login
 2. 以輸入地址搜尋飯店，或是增加篩選條件搜尋 Search rooms by the address of the hotel, with condition filter function
-3. Pick random range of dates in calendar to book the room
-4. Could see the booking result and then download invoice on private page
-5. After booking a room, could leave rating and comment
-6. Revise personal information and password
-7. Reset the password if password forgot
+3. 選擇日期區間預訂房間 Pick random range of dates in calendar to book the room
+4. 預訂房間後，可到個人頁確認細節或下載客製化的發票 Could see the booking result and then download invoice on private page
+5. 預訂房間後，才會出現評論區讓使用者提供評論 After booking a room, could leave rating and comment
+6. 能到個人頁修改帳號或密碼 Revise personal information and password
+7. 忘記密碼的話，有提供重新設定的服務 Reset the password if password forgot
 
 - As an admin
 1. Check out all the booking results and details, delete if in need
