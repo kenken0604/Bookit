@@ -52,6 +52,12 @@ Password: 111111
    - 可以進入修改頁，更改使用者的身分
    - 刪除使用者
 
+## 網頁效率評分
+- GTmetrix
+<img src="https://github.com/kenken0604/Bookit/blob/main/public/3.png" width="100%">
+
+- PageSpeed Insights
+<img src="https://github.com/kenken0604/Bookit/blob/main/public/4.png" width="100%">
 
 ## Production Deployment
 
